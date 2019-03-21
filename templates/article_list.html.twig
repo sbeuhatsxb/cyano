@@ -1,0 +1,54 @@
+{% extends 'homepage.html.twig' %}
+
+{% block title %} Homepage {% endblock %}
+
+{% block body %}
+    <div class="container" style="min-height: 500px">
+    {#SUMMARY OF FILTERS SELECTED BEGIN#}
+    {% if shortname is defined %}
+        <div class="row">
+            <div style="padding: 0 15px 0 15px">
+
+                {% if shortname == 'Brand' %}
+                    <h2>Liste des articles en rapport avec la marque {{ filter|upper }} :</h2>
+                {% elseif shortname == 'Category' %}
+                    <h2>Liste des articles en rapport avec la catégorie : {{ filter|upper }} </h2>
+                {% endif %}
+
+            </div>
+        </div>
+    {% endif %}
+    {#SUMMARY OF FILTERS SELECTED END#}
+
+    {#SUMMARY OF THE SEARCH#}
+    <div class="row">
+        {% if searchedTermArray is defined %}
+            <h2>Liste des articles en rapport votre recherche :&nbsp;&nbsp;</h2>
+            {% for term in searchedTermArray %}
+                <p class="researched-term">{{ term }} &nbsp;</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+    {#SUMMARY OF FILTERS SELECTED END#}
+
+    {#MAIN ARTICLE BEGIN#}
+    {% include 'article_card.html.twig' %}
+    {#MAIN ARTICLE END#}
+
+    {#KNP PAGINATOR BEGIN#}
+    <div class="navigation">
+        {{ knp_pagination_render(articles) }}
+    </div>
+    {#KNP PAGINATOR END#}
+
+    </div>
+    {#SECOND CONTAINER END#}
+
+    {% block javascripts %}
+        {#FITS DIVs IN A ROW ACCORDING TO THE BIGGER#}
+        {{ encore_entry_script_tags('matchHeight') }}
+    {% endblock %}
+
+    {#END BLOCK BODY#}
+{% endblock %}
+

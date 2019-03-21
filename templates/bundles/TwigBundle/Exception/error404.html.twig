@@ -1,0 +1,19 @@
+{% extends 'homepage.html.twig' %}
+
+{% block title %} Page introuvable {% endblock %}
+
+{% block body %}
+    <div class="jumbotron">
+        <div class="container" style="min-height: 330px">
+            <h1>Page introuvable</h1>
+
+            <p style="padding-bottom: 100px">
+                Votre requête n'a pu aboutir. Veuillez la recommencer ou bien <a href="{{ path('index') }}">retourner
+                    sur la page d'accueil</a>.
+            </p>
+            <div>
+                <button class="btn btn-secondary btn-lg btn-block">Accueil</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

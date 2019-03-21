@@ -1,0 +1,121 @@
+#easy_admin:
+#    entities:
+#        # List the entity class name you want to manage
+#        - App\Entity\Product
+#        - App\Entity\Category
+#        - App\Entity\User
+
+#fos_ck_editor:
+#  input_sync: true
+#  default_config: base_config
+#  configs:
+#    base_config:
+#      toolbar:
+#        - { name: "styles", items: ['Bold', 'Italic', 'BulletedList', 'Link'] }
+
+easy_admin:
+  list:
+    max_results: 30
+
+  design:
+    form_theme:
+      - 'form_div_layout.html.twig'
+      - '@EasyAdmin/form/bootstrap_4.html.twig'
+      - '@VichUploader/Form/fields.html.twig'
+    assets:
+      js:
+        - '/bundles/cksourceckfinder/ckfinder/ckfinder.js'
+        - '/js/setup-ckfinder.js'
+  entities:
+    ####################################################################################################
+    Articles:
+      class: App\Entity\Article
+      controller: App\Controller\AdminController
+      list:
+        actions:
+          - { name: 'show' }
+        fields:
+          - { property: 'title', label: 'Titre' }
+          - { property: 'isPublished', label: 'Article en publication' }
+          - { property: 'linkedBrand', label: 'Brand(s) en relation', type: 'array' }
+          - { property: 'linkedCategory', label: 'Catégorie(s)', type: 'array' }
+          - { property: 'content', label: 'Article' }
+          - { property: 'linkedImage', label: 'Image associée', type: 'image', base_path: '/uploads/images/' }
+
+      show:
+        templates:
+          show: 'admin/article/show.html.twig'
+        actions:
+          - { name: 'indexArticles', label: 'Indexation de TOUS les articles', icon: 'list' }
+        fields:
+          - { property: 'title', label: 'Titre' }
+          - { property: 'content', label: 'Article', type: 'raw' }
+          - { property: 'linkedCategory', label: 'Catégorie(s)' }
+          - { property: 'linkedBrand', label: 'Brand(s) en relation' }
+          - { property: 'writer', label: 'Auteur de l`article' }
+          - { property: 'isPublished', label: 'Article en publication', type: boolean}
+          - { property: 'linkedImage', label: 'Image associée', type: 'image', base_path: '/uploads/images/' }
+      form:
+        fields:
+#          - { type: 'tab' , label: 'Basic Information' }
+          - { property: 'title', label: 'Titre' }
+          - { property: 'content', label: 'Article', type: 'fos_ckeditor' }
+          - { property: 'linkedCategory', label: 'Catégorie(s)' }
+          - { property: 'writer', label: 'Auteur de l`article' }
+          - { property: 'linkedImage', label: 'Image associée' }
+          - { property: 'isPublished', label: 'Article en publication' }
+
+    ####################################################################################################
+    Utilisateurs:
+      class: App\Entity\User
+      list:
+        fields:
+          - { property: 'username', label: 'Utilisateur' }
+          - { property: 'email', label: 'E-mail' }
+          - { property: 'enabled', label: 'Activé ?' }
+          - { property: 'lastLogin', label: 'Dernière connexion' }
+      form:
+        fields:
+          - { property: 'username', label: 'Utilisateur' }
+          - { property: 'email', label: 'E-mail' }
+          - { property: 'enabled', label: 'Activé ?' }
+          - { property: 'lastLogin', label: 'Dernière connexion' }
+          # if administrators are allowed to edit users' passwords and roles, add this:
+          - { property: 'plainPassword', type: 'text', type_options: { required: false } }
+          - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN' } } }
+    ####################################################################################################
+    Images:
+      class: App\Entity\Image
+      list:
+        actions: ['show']
+        fields:
+          - { property: 'image', template: 'vich_uploader_image.html.twig' }
+          - { property: 'text', label: 'Mémo' }
+      form:
+        fields:
+          - { property: 'text', label: 'Mémo' }
+          - { property: 'imageFile', label: 'Illustration', type: 'vich_image' }
+#          - { property: 'image', template: 'vich_uploader_image.html.twig' }
+    ####################################################################################################
+    Index:
+      class: App\Entity\LexicalIndex
+    ####################################################################################################
+    Currency:
+      class: App\Entity\Currency
+      form:
+        fields:
+          - { property: 'label', label: 'Libellé' }
+          - { property: 'code', label: 'Code INT' }
+          - { property: 'symbol', label: 'Symbole' }
+          - { property: 'symbolLocation', label: 'Symbole à gauche ?' }
+          - { property: 'decimalSeparator', label: 'Séparateur de décimales' }
+          - { property: 'thousandsSeparator', label: 'Séparateur de milliers' }
+    ####################################################################################################
+    Brand:
+      class: App\Entity\Brand
+    ####################################################################################################
+    Price:
+      class: App\Entity\PriceModifier
+    ####################################################################################################
+    Category:
+      class: App\Entity\Category

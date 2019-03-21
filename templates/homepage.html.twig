@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr" dir='ltr'>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1' name='viewport'/>
+    {# Description and Keywords (start) #}
+    <meta content='Textes de Philippe Choulet' name='description'/>
+    <meta content='Philosophie, Philippe Choulet' name='keywords'/>
+    {# Description and Keywords (end) #}
+    <meta content='Philippe Choulet' property='og:site_name'/>
+    {# Social Media meta tag need customer customization #}
+    <meta content='Philippe Choulet' property='og:title'/>
+    <meta content='Site de Philippe Choulet' property='og:description'/>
+
+    <title>
+        {% block title %}Luscinia megarhynchos{% endblock %}
+    </title>
+
+    {#STYLE FOR FOOTER#}
+    <style>
+        nav#social i {
+            padding: 15px 14px 25px;
+            font-size: 20px;
+        }
+
+        .rightf {
+            padding-top: 10px;
+        }
+    </style>
+    {#END STYLE FOR FOOTER#}
+
+
+    {% block stylesheets %}
+        <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+                crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+              integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+              crossorigin="anonymous">
+        {# Google Webfont #}
+        <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Merriweather:400,700' rel='stylesheet' type='text/css'/>
+        <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,700,400italic,700italic' rel='stylesheet'
+              type='text/css'/>
+
+        <link rel="stylesheet" href="{{ asset('build/app.css') }}" type="text/css">
+        <link rel="shortcut icon" href="../public/favicon.ico">
+    {% endblock %}
+
+</head>
+
+<body class='index'>
+{#MAIN CONTAINER BEGIN#}
+<div class="header-wrapper">
+    <div class='top_wrapper'>
+
+        {#HEADER BEGIN#}
+        <div id='header-wrapper' itemscope='itemscope'>
+            <div class='ornament'>
+                <div class='container'>
+                    <div class='row center-block'>
+                        <div class='header section' id='header'>
+                            <div class='widget Header' data-version='1' id='Header1'>
+                                <div id='header-inner'>
+                                    <div class='titlewrapper'>
+                                        <h1 class='title'>
+                                            <a href='#' itemprop='url'>
+                                                <span itemprop='name'>Luscinia megarhynchos</span>
+                                            </a>
+                                        </h1>
+                                    </div>
+                                    <div class='descriptionwrapper'>
+                                        <b class='description' style="font-size: 18px;"><span>ANOTHER <span style="color: #e30613">BEST</span> DAY</span>
+                                        </b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class='twelve'>
+                {#<div class='header_right'></div>#}
+
+                {#NAVBAR BEGIN#}
+                <div class="container">{#<- centers the navbar #}
+                    <nav class="navbar navbar-expand-lg navbar-dark custom">
+                        <a class="navbar-brand" href="{{ path('index') }}">Accueil</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                {%  for category in categories %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" style="background-color: #ffffff6b;" href="{{ path('filtered_list', { 'filter': category, 'shortname': 'Category' }) }}">{{ category }}</a>
+                                        {#<a class="nav-link" href="{{ path('index') }}">{{ category }}</a>#}
+                                    </li>
+                                {% endfor %}
+                                <li class="nav-item dropdown" style="background-color: #ffffff6b;">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Univers
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        {%  for brand in brands %}
+                                            <a class="dropdown-item"href="{{ path('filtered_list', { 'filter': brand|lower, 'shortname': 'Brand' }) }}">{{ brand }}</a>
+
+                                            {#<a class="dropdown-item" href="{{ path('index') }}">{{ brand }}</a>#}
+                                        {% endfor %}
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ path('index') }}">Autre</a>
+                                    </div>
+                                </li>
+                            </ul>
+                            {#Barre de recherche (searchbar) DEBUT#}
+                            {% set searchbar = search_bar.getForm().createView() %}
+                            <div class="sb-container">
+                                <div class="form-inline my-2 sb-container-inner float-md-right">
+                                    <div class="row col-lg-5 offset-lg-3 sb-container-inner">
+                                        <div class="row sb-container-inner">
+                                            {% if app.request.get('_route') != "searchbar" %}
+                                            <a class="nav-link" href="{{ path('searchbar') }}">
+                                                <button class="btn btn-outline-danger sb-container-inner"
+                                                        style="font-size: 16px;" value="search"><p>Rechercher
+                                                    <i class="fas fa-search"></i></p>
+                                                </button>
+                                            </a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {#Barre de recherche (search bar) fin#}
+                    </nav>
+                    {#NAVBAR END#}
+
+                </div>
+            </div>
+        </div>
+        {#HEADER END#}
+    </div>
+</div>
+{#MAIN CONTAINER END#}
+
+<div class='clear'></div>
+
+{% block body %}
+{% endblock %}
+
+
+{#FOOTER BEGIN#}
+<div class="jumbotron-fluid">
+    <footer class="footer page-footer" id="footer">
+
+        <nav id='social'>
+            <a class='letter_email' href='{{ path('index') }}' target='_blank'><i class='fas fa-envelope'></i></a>
+        </nav>
+        <small>Créé par <a href='{{ path('index') }}' title=''>Sébastien STELTZLEN</a></small>
+        <div class='rightf'></div>
+    </footer>
+</div>
+{#FOOTER END#}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('navBar') }}
+{% endblock %}
+
+
+</body>
+
+</html>
