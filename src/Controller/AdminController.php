@@ -13,16 +13,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController;
 
 class AdminController extends EasyAdminController
 {
-    /**
-     * @var IndexArticleService $indexService
-     */
-    private $indexArticleService;
-
-    function __construct(IndexArticleService $indexArticleService)
-    {
-        $this->indexArticleService = $indexArticleService;
-    }
-
     public function createNewUserEntity()
     {
         return $this->get('fos_user.user_manager')->createUser();
@@ -40,10 +30,4 @@ class AdminController extends EasyAdminController
         parent::updateEntity($user);
     }
 
-    public function indexArticlesAction()
-    {
-
-        $this->indexArticleService->indexAllArticle();
-
-    }
 }

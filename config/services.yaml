@@ -32,11 +32,6 @@ services:
         class: App/Service/PaginationService
         arguments: ["@doctrine.orm.entity_manager", "knp_paginator","@request_stack"]
 
-    indexArticleService:
-        class: \App\Service\IndexArticleService
-        public: true
-        arguments:
-            $entityManager: "@doctrine.orm.entity_manager"
 
 #    App\EventListener\IndexLastSubmitedArticleEvent:
 #        tags:

@@ -25,17 +25,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use App\Service\SearchBarFormService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
 class SearchBarController extends AbstractController
 {
-    /**
-     * @var CreatePreviewArticleService $createPreviewArticleService
-     */
-    protected $createPreviewArticleService;
 
     /**
      * @var PaginationService
@@ -45,12 +40,10 @@ class SearchBarController extends AbstractController
 
     /**
      * SearchBarController constructor.
-     * @param CreatePreviewArticleService $createPreviewArticleService
      * @param PaginationService $paginationService
      */
-    public function __construct(CreatePreviewArticleService $createPreviewArticleService, PaginationService $paginationService)
+    public function __construct(PaginationService $paginationService)
     {
-        $this->createPreviewArticleService = $createPreviewArticleService;
         $this->paginationService = $paginationService;
     }
 
@@ -61,10 +54,10 @@ class SearchBarController extends AbstractController
      * @param Client $client
      * @return Response
      */
-    public function search(Request $request, Client $client, CategoryRepository $categorieRepo, BrandRepository $brandRepo)
+    public function search(Request $request, Client $client, CategoryRepository $categoryRepo, BrandRepository $brandRepo)
     {
 
-        $categories = $categorieRepo->findAll();
+        $categories = $categoryRepo->findAll();
         $brands = $brandRepo->findAll();
 
         if (!$request->isXmlHttpRequest()) {
