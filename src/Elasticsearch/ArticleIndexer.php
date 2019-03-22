@@ -34,14 +34,12 @@ class ArticleIndexer
                 'id' => $article->getId(),
                 'title' => $article->getTitle(),
                 'content' => $article->getContent(),
-                'price' => $article->getPrice(),
                 'linkedBrands' => $linkedBrands,
                 'linkedCategories' => mb_strtoupper($linkedCategories),
                 'linkedImage' => $article->getLinkedImage()->getImage(),
-                'summary'=> $summary,
-                //                'date' => $article->getcreatedAt()->format('M d, Y'),
-//                'url' => $this->router->generate('blog_article', ['slug' => $article->getSlug()], UrlGeneratorInterface::ABSOLUTE_PATH),
                 // Not indexed but needed for display
+                'price' => $article->getPrice(),
+                'summary' => $summary,
 
             ],
             "articles" // Types are deprecated, to be removed in Elastic 7

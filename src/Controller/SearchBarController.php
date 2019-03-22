@@ -20,6 +20,7 @@ use Elastica\Query;
 use Elastica\Client;
 use Elastica\Query\BoolQuery;
 use Elastica\Query\MultiMatch;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -29,7 +30,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class SearchBarController extends Controller
+class SearchBarController extends AbstractController
 {
     /**
      * @var CreatePreviewArticleService $createPreviewArticleService
@@ -69,7 +70,7 @@ class SearchBarController extends Controller
         if (!$request->isXmlHttpRequest()) {
             return $this->render('search.html.twig', [
                 'categories' => $categories,
-                'brands' => $brands
+                'brands' => $brands,
             ]);
         }
 
@@ -78,7 +79,7 @@ class SearchBarController extends Controller
 
         $match = new MultiMatch();
         $match->setQuery($query);
-        $match->setFields(["id","title", "content", "author", "linkedBrands", "linkedCategories", "price"]);
+        $match->setFields(["title", "content", "linkedBrands", "linkedCategories"]);
 
         $bool = new BoolQuery();
         $bool->addMust($match);
@@ -90,7 +91,7 @@ class SearchBarController extends Controller
         $foundPosts = $client->getIndex('shop')->search($elasticaQuery);
         $results = [];
         foreach ($foundPosts as $post) {
-            $results[] = $results[] = $post->getSource();
+            $results[] = $post->getSource();
         }
 
         return $this->json($results);
