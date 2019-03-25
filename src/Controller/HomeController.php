@@ -8,10 +8,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Cart;
 use App\Repository\ArticleRepository;
 use App\Repository\BrandRepository;
 use App\Repository\CategoryRepository;
 use App\Service\PaginationService;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\LastArticlesService;
@@ -23,9 +25,10 @@ use App\Entity\Article;
 use App\Entity\Brand;
 use App\Entity\Category;
 use App\Entity\Currency;
+use App\Form\AddToCartFormType;
+use Symfony\Component\Form\FormView;
 
-
-class HomeController extends Controller
+class HomeController extends AbstractController
 {
     const PAGE_LIMIT = 9;
     const PAGE_NUMBER = 1;
@@ -55,19 +58,23 @@ class HomeController extends Controller
      * @param BrandRepository $brandRepo
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(SessionInterface $session, ArticleRepository $articleRepository, CategoryRepository $categorieRepo, BrandRepository $brandRepo)
+    public function index(Request $request, SessionInterface $session, ArticleRepository $articleRepository, CategoryRepository $categorieRepo, BrandRepository $brandRepo)
     {
 
         $lastArticles = $articleRepository->findLastTwelveArticles();
         $categories = $categorieRepo->findAll();
         $brands = $brandRepo->findAll();
 
+        $cart = new Cart();
+        $form = $this->createForm(AddToCartFormType::class, $cart);
+
         $articles = $this->paginationService->paginate($lastArticles, self::PAGE_NUMBER, self::PAGE_LIMIT);
 
         return $this->render('article_list.html.twig', [
             'articles' => $articles,
             'categories' => $categories,
-            'brands' => $brands
+            'brands' => $brands,
+            'form' =>  $form->createView()
         ]);
     }
 
@@ -96,7 +103,7 @@ class HomeController extends Controller
         }
 
         $filterId = $getFilter[0]->getId();
-        
+
         $lastArticles = $this->lastArticlesService->getLastArticles($shortname, $filterId);
 
         $articles = $this->paginationService->paginate($lastArticles, 1, 12);

@@ -9,15 +9,15 @@ use App\Entity\Brand;
 use App\Repository\BrandRepository;
 use App\Repository\CategoryRepository;
 use App\Service\LastArticlesService;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/article")
  */
-class ArticleController extends Controller
+class ArticleController extends AbstractController
 {
 
     /**
