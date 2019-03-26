@@ -99,33 +99,38 @@
 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto">
-                                {%  for category in categories %}
-                                    <li class="nav-item">
-                                        <a class="nav-link" style="background-color: #ffffff6b;" href="{{ path('filtered_list', { 'filter': category, 'shortname': 'Category' }) }}">{{ category }}</a>
-                                        {#<a class="nav-link" href="{{ path('index') }}">{{ category }}</a>#}
-                                    </li>
-                                {% endfor %}
+                                {% if categories is defined %}
+                                    {%  for category in categories %}
+                                        <li class="nav-item">
+                                            <a class="nav-link" style="background-color: #ffffff6b;" href="{{ path('filtered_list', { 'filter': category, 'shortname': 'Category' }) }}">{{ category }}</a>
+                                            {#<a class="nav-link" href="{{ path('index') }}">{{ category }}</a>#}
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
+                                {% if brands is defined %}
                                 <li class="nav-item dropdown" style="background-color: #ffffff6b;">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Univers
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        {%  for brand in brands %}
-                                            <a class="dropdown-item"href="{{ path('filtered_list', { 'filter': brand|lower, 'shortname': 'Brand' }) }}">{{ brand }}</a>
+                                            {%  for brand in brands %}
+                                                <a class="dropdown-item"href="{{ path('filtered_list', { 'filter': brand|lower, 'shortname': 'Brand' }) }}">{{ brand }}</a>
 
-                                            {#<a class="dropdown-item" href="{{ path('index') }}">{{ brand }}</a>#}
-                                        {% endfor %}
+                                                {#<a class="dropdown-item" href="{{ path('index') }}">{{ brand }}</a>#}
+                                            {% endfor %}
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="{{ path('index') }}">Autre</a>
                                     </div>
                                 </li>
+                                {% endif %}
                             </ul>
                             {#Barre de recherche (searchbar) DEBUT#}
                             <div class="sb-container">
                                 <div class="form-inline my-2 sb-container-inner float-md-right">
                                     <div class="row col-lg-5 offset-lg-3 sb-container-inner">
                                         <div class="row sb-container-inner">
+                                            <div class="row">
                                             {% if app.request.get('_route') != "searchbar" %}
                                             <a class="nav-link" href="{{ path('searchbar') }}">
                                                 <button class="btn btn-outline-danger sb-container-inner"
@@ -134,6 +139,12 @@
                                                 </button>
                                             </a>
                                             {% endif %}
+                                            <a class="nav-link" href="{{ path('_viewCart') }}">
+                                                <button class="btn btn-inline-danger sb-container-inner"
+                                                        style="font-size: 16px;" value="search"><i class="fas fa-shopping-cart"></i>
+                                                </button>
+                                            </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

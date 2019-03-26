@@ -20,7 +20,7 @@ class CartRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Cart[] Returns an array of Cart objects
+    //  * @return CartController[] Returns an array of CartController objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class CartRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Cart
+    public function findOneBySomeField($value): ?CartController
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')

@@ -1,0 +1,27 @@
+
+{% extends 'homepage.html.twig' %}
+{% block title %} Cart {% endblock %}
+
+{% block body %}
+    <div class="jumbotron-fluid">
+        <div class="container main-page-min-height">
+    <div>Bonjour {{ user }} voici le contenu de votre panier :</div>
+    {% if order ==  '' %}<br>
+        <div>Votre panier est vide ! Oh non ! Cry cry cry :'( :'( :'(
+            <br>
+            <br>
+            Courrez vite <a class="nav-link" href="{{ path('index')}}">acheter quelque chose</a> !!!</div>
+    {% else %}
+        <ul>
+            {% for orderLine in order.getOrderLine() %}
+                <li>{{ orderLine.article }} * {{ orderLine.quantity }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <br>
+    <br>
+    <a class="nav-link" href="{{ path('_clearCart')}}">
+        Vider le panier</a>
+        </div>
+    </div>
+{% endblock %}

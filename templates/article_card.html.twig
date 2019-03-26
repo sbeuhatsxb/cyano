@@ -70,7 +70,7 @@
                 var quantity = $(this).siblings("input[name=quantity]").val();
 
                 $("#loader").show();
-                var path = "{{ path('_addToCard') }}";
+                var path = "{{ path('_addToCart') }}";
 
                 $.ajax({
                     type: 'POST',
