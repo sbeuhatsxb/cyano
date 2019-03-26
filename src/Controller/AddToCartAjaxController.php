@@ -8,15 +8,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Article;
-use App\Entity\Cart;
+use App\Entity\Order;
+use App\Entity\OrderLine;
 use App\Repository\ArticleRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class AddToCartAjaxController extends AbstractController
 {
@@ -29,25 +28,32 @@ class AddToCartAjaxController extends AbstractController
      */
     public function hop(Request $request, ArticleRepository $articleRepository)
     {
+
         if ($request->isXmlHttpRequest()) {
 
-            $cart = new Cart();
+            if(!isset($order)){
+                $order = new Order();
+                $user = $this->get('security.token_storage')->getToken()->getUser();
+                $order->setLinkedUser($user);
+            }
 
-            $articleId = $request->query->get('articleId');
-            $quantity = $request->query->get('quantity');
+            $orderLine = new OrderLine();
+
+            $articleId = $request->request->get('articleId');
+            $quantity = $request->request->get('quantity');
 
             $article = $articleRepository->find($articleId);
 
             $em = $this->getDoctrine()->getManager();
 
-            $cart->setArticles($article);
-            $cart->setQuantity($quantity);
-            $em->persist($cart);
+            $orderLine->setArticle($article);
+            $orderLine->setQuantity($quantity);
+            $orderLine->setCommand($order);
+            $em->persist($orderLine);
 
             return new Response();
         }
-
-
     }
+
 
 }

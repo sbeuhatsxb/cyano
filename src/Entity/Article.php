@@ -139,32 +139,6 @@ class Article
         return $this;
     }
 
-    /**
-     * @return Collection|Brand[]
-     */
-    public function getLinkedConcept(): Collection
-    {
-        return $this->linkedConcept;
-    }
-
-    public function addLinkedConcept(Brand $linkedConcept): self
-    {
-        if (!$this->linkedConcept->contains($linkedConcept)) {
-            $this->linkedConcept[] = $linkedConcept;
-        }
-
-        return $this;
-    }
-
-    public function removeLinkedConcept(Brand $linkedConcept): self
-    {
-        if ($this->linkedConcept->contains($linkedConcept)) {
-            $this->linkedConcept->removeElement($linkedConcept);
-        }
-
-        return $this;
-    }
-
     public function getIsPublished(): ?bool
     {
         return $this->isPublished;

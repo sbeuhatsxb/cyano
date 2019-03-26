@@ -29,47 +29,17 @@
                 <div class="container text-right">
                     <h4>Prix : {{ article.price }} € HT.</h4>
                 </div>
-
-                <form method="post" action="#" id="#addToCart">
-                    <div id="article_id" data-articleid={{ article.id }}></div>
                     <div class="container">
                         <div class="row">
                             <h5 class="table-h5-style" style="margin-right: 5px;">Quantité</h5>
                             <input id="quantity" type="number" name="quantity" min="1" max="10">
-                            <button type="submit" class="btn btn-danger" style="margin-top: auto; margin-left: 30px;">
+                            <button id="{{ article.id }}" type="button" class="btn btn-danger" style="margin-top: auto; margin-left: 30px;">
                                 Ajouter au panier
                             </button>
                         </div>
                     </div>
-                    {% block javascripts %}
-                        <script type="text/javascript" xmlns="http://www.w3.org/1999/html">
-                            $(document).ready(function () {
-                                $(function () {
-                                    $(this).on('submit', function (e) {
-                                        articleId = {{ article.id }};
-                                        quantity = $(this).find("input[name=quantity]").val();
 
-                                        $("#loader").show();
 
-                                        var path = "{{ path('_addToCard') }}";
-                                        $.ajax({
-                                            type: 'GET',
-                                            url: path,
-                                            data: {"articleId": articleId, "quantity": quantity},
-                                            success: function (data) {
-                                                alert("Ajouté au panier");
-                                                $("#loader").hide();
-                                            }
-                                        });
-
-                                        e.preventDefault();
-                                        // return false;
-                                    })
-                                });
-                            });
-                        </script>
-                    {% endblock %}
-                </form>
 
 
 
@@ -90,5 +60,29 @@
 
             </div>
         </div>
-    {% endfor %}
+    {% endfor %}a
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" xmlns="http://www.w3.org/1999/html">
+        $('button[type="button"]').click(function (e) {
+                e.preventDefault();
+                var articleId = $(this).attr('id');
+                var quantity = $(this).siblings("input[name=quantity]").val();
+
+                $("#loader").show();
+                var path = "{{ path('_addToCard') }}";
+
+                $.ajax({
+                    type: 'POST',
+                    url: path,
+                    data: {"articleId": articleId, "quantity": quantity},
+                    success: function (data) {
+                        $("#loader").hide();
+                    }
+                });
+            })
+
+        ;
+    </script>
+</div>
 {% endblock %}

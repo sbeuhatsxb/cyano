@@ -65,8 +65,6 @@ class HomeController extends AbstractController
         $categories = $categorieRepo->findAll();
         $brands = $brandRepo->findAll();
 
-        $cart = new Cart();
-        $form = $this->createForm(AddToCartFormType::class, $cart);
 
         $articles = $this->paginationService->paginate($lastArticles, self::PAGE_NUMBER, self::PAGE_LIMIT);
 
@@ -74,7 +72,6 @@ class HomeController extends AbstractController
             'articles' => $articles,
             'categories' => $categories,
             'brands' => $brands,
-            'form' =>  $form->createView()
         ]);
     }
 

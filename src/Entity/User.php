@@ -26,11 +26,16 @@ class User extends BaseUser
      */
     private $articles;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="linkedUser")
+     */
+    private $orders;
+
     public function __construct()
     {
         parent::__construct();
         $this->articles = new ArrayCollection();
-        // your own logic
+        $this->orders = new ArrayCollection();
     }
 
     /**
@@ -58,6 +63,37 @@ class User extends BaseUser
             // set the owning side to null (unless already changed)
             if ($article->getWriter() === $this) {
                 $article->setWriter(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): self
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders[] = $order;
+            $order->setLinkedUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): self
+    {
+        if ($this->orders->contains($order)) {
+            $this->orders->removeElement($order);
+            // set the owning side to null (unless already changed)
+            if ($order->getLinkedUser() === $this) {
+                $order->setLinkedUser(null);
             }
         }
 
