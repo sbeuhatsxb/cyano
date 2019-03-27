@@ -55,13 +55,11 @@ class Article
     private $linkedCategory;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Image",cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Image",cascade={"persist"}, fetch="EAGER")
      */
     private $linkedImage;
 
     //not mapped property - this one needs to be public
-    public $score;
-
     private $preview;
 
     /**

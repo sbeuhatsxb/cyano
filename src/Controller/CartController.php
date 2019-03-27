@@ -95,15 +95,26 @@ class CartController extends AbstractController
      * @param Session $session
      * @return Response
      */
-    public function view(Session $session)
+    public function view(Session $session, ArticleRepository $articleRepo)
     {
         if ($session->get('order')) {
             $order = $session->get('order');
+            /**
+             * @var Order $order
+             */
+            foreach($order->getOrderLine() as $orderline){
+                //Unfortunately needed for data initialization
+                $article = $articleRepo->find($orderline->getArticle()->getId());
+                $orderline->getArticle()->setLinkedImage($article->getLinkedImage());
+            };
+
+
         } else {
             $order = '';
         }
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
+
 
         return $this->render('cart.html.twig', [
             'order' => $order,
