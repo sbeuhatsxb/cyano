@@ -4,6 +4,7 @@
 
 {% block body %}
     <div class="container" style="min-height: 500px">
+
         {#SUMMARY OF FILTERS SELECTED BEGIN#}
         {% if shortname is defined %}
             <div class="row">
@@ -22,6 +23,7 @@
 
         {#SUMMARY OF THE SEARCH#}
         <div class="row">
+
             {% if searchedTermArray is defined %}
                 <h2>Liste des articles en rapport votre recherche :&nbsp;&nbsp;</h2>
                 {% for term in searchedTermArray %}

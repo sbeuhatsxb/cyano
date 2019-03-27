@@ -59,7 +59,7 @@ class CartController extends AbstractController
                         $newQuantity = $orderLine->getQuantity() + $quantity;
                         $orderLine->setQuantity($newQuantity);
                         $em->persist($orderLine);
-                        continue;
+                        break;
                     } else {
                         $orderLine = new OrderLine();
 
@@ -68,7 +68,7 @@ class CartController extends AbstractController
                         $orderLine->setCommand($order);
                         $em->persist($orderLine);
                     }
-                };
+                }
             } else {
                 $orderLine = new OrderLine();
 
@@ -93,31 +93,34 @@ class CartController extends AbstractController
     /**
      * @Route("/cart", name="_viewCart")
      * @param Session $session
+     * @param ArticleRepository $articleRepo
      * @return Response
      */
     public function view(Session $session, ArticleRepository $articleRepo)
     {
         if ($session->get('order')) {
-            $order = $session->get('order');
+
+            $gatheredArticles = [];
+
+            $sessionOrder = $session->get('order');
+
             /**
-             * @var Order $order
+             * @var Order $sessionOrder
              */
-            foreach($order->getOrderLine() as $orderline){
+            foreach($sessionOrder->getOrderLine() as $orderline){
                 //Unfortunately needed for data initialization
                 $article = $articleRepo->find($orderline->getArticle()->getId());
                 $orderline->getArticle()->setLinkedImage($article->getLinkedImage());
             };
 
-
         } else {
-            $order = '';
+            $sessionOrder = '';
         }
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
-
         return $this->render('cart.html.twig', [
-            'order' => $order,
+            'order' => $sessionOrder,
             'user' => $user
         ]);
     }

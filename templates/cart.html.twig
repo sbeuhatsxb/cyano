@@ -13,66 +13,91 @@
                     Courrez vite <a class="nav-link" href="{{ path('index') }}">acheter quelque chose</a> !!!
                 </div>
             {% else %}
-                <ul>
-                    {% for orderLine in order.getOrderLine() %}
-                        {# -> data-mh -> js -> same size boxes#}
-                        <div class="container" style="padding: 20px">
-                            <div class="row">
-                                <div class="col-xs-4 card-very-small card-body d-flex flex-column">
-                                    <a href="{{ path('article_show', {'id': orderLine.article.id}) }}">
-                                        {% if orderLine.article.getLinkedImage() != null %}
-                                            <img class="rounded mx-auto d-block card-img-top card-very-small"
-                                                 src="{{ asset('uploads/images/' ~ orderLine.article.linkedImage ) }}"
-                                                 alt="{{ orderLine.article.title }}"/>
-                                        {% endif %}
-                                    </a>
+                {% for orderLine in order.getOrderLine() %}
+                {# -> data-mh -> js -> same size boxes#}
+                <div class="container" style="padding: 20px">
+                    <div class="row">
+                        <div class="col-xs-4 card-very-small card-body d-flex flex-column">
+                            <a href="{{ path('article_show', {'id': orderLine.article.id}) }}">
+                                {% if orderLine.article.getLinkedImage() != null %}
+                                    <img class="rounded mx-auto d-block card-img-top card-very-small"
+                                         src="{{ asset('uploads/images/' ~ orderLine.article.linkedImage ) }}"
+                                         alt="{{ orderLine.article.title }}"/>
+                                {% endif %}
+                            </a>
 
-                                </div>
-                                <div class="col-xs-4 card-body d-flex flex-column">
-                                    <h4 style="color:#e30613">{{ orderLine.article.title }}</h4>
-                                    <h5>Prix : {{ orderLine.article.price }} € HT.</h5>
-                                </div>
-
-                                <div class="col-xs-2">
-                                    {% if orderLine.quantity < 10 %}
-                                        <div class="form-group" id="form-group">
-                                            <label for="exampleFormControlSelect1">Quantité</label>
-                                            <select class="form-control" id="{{ orderLine.article.id }}">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                                <option>6</option>
-                                                <option>7</option>
-                                                <option>8</option>
-                                                <option>9</option>
-                                                <option>ou plus...</option>
-                                            </select>
-                                        </div>
-                                        <div class="table-h5-style">
-                                            <input id="quantity" type="number" name="{{ orderLine.article.id }}" style="display: none">
-                                        </div>
-                                    {% endif %}
-                                    <script type="text/javascript" xmlns="http://www.w3.org/1999/html">
-                                        $(document).ready(function () {
-                                            var currentSelector = $("#{{ orderLine.article.id }}");
-                                            currentSelector.val("{{ orderLine.quantity }}");
-                                            currentSelector.change(function() {
-                                                var tenOrMore = currentSelector.val();
-                                                if (tenOrMore == "ou plus...") {
-                                                    currentSelector.hide();
-                                                    $("input[name={{ orderLine.article.id }}]").show();
-                                                }
-                                            });
-                                        });
-                                    </script>
-                                </div>
-
-                            </div>
                         </div>
-                    {% endfor %}
-                </ul>
+                        <div class="col-xs-4 card-body d-flex flex-column">
+                            <h4 style="color:#e30613">{{ orderLine.article.title }}</h4>
+                            <h5>Prix : <i id="price">{{ orderLine.article.price }}</i> € HT.</h5>
+
+                        </div>
+
+                        <div class="col-xs-2">
+                            {% if orderLine.quantity < 10 %}
+                                <div class="form-group" id="form-group">
+                                    <label for="exampleFormControlSelect1">Quantité</label>
+                                    <select class="form-control" id="{{ orderLine.article.id }}">
+                                        {% for i in 1..9 %}
+                                            <option value="{{ i }}">{{ i }}</option>
+                                        {% endfor %}
+                                        <option>ou plus...</option>
+                                    </select>
+                                </div>
+                                <div class="table-h5-style">
+                                    <input id="quantity" type="number" name="{{ orderLine.article.id }}"
+                                           style="display: none">
+                                </div>
+                            {% else %}
+                                <div class="table-h5-style">
+                                    <input id="quantity" type="number" name="{{ orderLine.article.id }}"
+                                           placeholder="{{ orderLine.quantity }}">
+                                </div>
+                            {% endif %}
+                            <div id="subtotalHT">Sous-total HT
+                                : {{ (orderLine.article.price * orderLine.article.price)|round(2) }}</div>
+                            <div id="subtotalTTC">Sous-total TTC
+                                : {{ (orderLine.article.price * orderLine.article.price * 1.2)|round(2) }}</div>
+                            <script type="text/javascript" xmlns="http://www.w3.org/1999/html">
+                                $(document).ready(function () {
+                                    var currentSelector = $("#{{ orderLine.article.id }}");
+
+
+                                    //set selected quantity according to the quantity received
+                                    currentSelector.val("{{ orderLine.quantity }}");
+
+                                    //If ten or more is select, show an input field
+                                    currentSelector.change(function () {
+                                        var tenOrMore = currentSelector.val();
+                                        if (tenOrMore == "ou plus...") {
+                                            currentSelector.hide();
+                                            $("input[name={{ orderLine.article.id }}]").show();
+                                        }
+                                    });
+                                });
+                            </script>
+                        </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+
+                {% block javascripts %}
+                <script type="text/javascript" xmlns="http://www.w3.org/1999/html">
+                    $(document).ready(function () {
+                        var totalSum = function () {
+                            var total = 0;
+                            $('#price').each(function (index, item) {
+                                total += parseFloat($(item).html());
+                            });
+
+                            $('.total').html(total);
+                        };
+                        totalSum();
+                    });
+                </script>
+                {% endblock %}
+
             {% endif %}
             <br>
             <br>
@@ -80,7 +105,6 @@
                 Vider le panier</a>
         </div>
     </div>
-{% endblock %}
-{% block javascripts %}
+    <h3>Total : <span class="total"></span></h3>
 
 {% endblock %}
