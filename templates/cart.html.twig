@@ -14,90 +14,75 @@
                 </div>
             {% else %}
                 {% for orderLine in order.getOrderLine() %}
-                {# -> data-mh -> js -> same size boxes#}
-                <div class="container" style="padding: 20px">
-                    <div class="row">
-                        <div class="col-xs-4 card-very-small card-body d-flex flex-column">
-                            <a href="{{ path('article_show', {'id': orderLine.article.id}) }}">
-                                {% if orderLine.article.getLinkedImage() != null %}
-                                    <img class="rounded mx-auto d-block card-img-top card-very-small"
-                                         src="{{ asset('uploads/images/' ~ orderLine.article.linkedImage ) }}"
-                                         alt="{{ orderLine.article.title }}"/>
+                    {# -> data-mh -> js -> same size boxes#}
+                    <div class="container" style="padding: 20px" id="line_{{ orderLine.article.id }}">
+                        <div class="row">
+                            <div class="col-xs-4 card-very-small card-body d-flex flex-column">
+                                <a href="{{ path('article_show', {'id': orderLine.article.id}) }}">
+                                    {% if orderLine.article.getLinkedImage() != null %}
+                                        <img class="rounded mx-auto d-block card-img-top card-very-small"
+                                             src="{{ asset('uploads/images/' ~ orderLine.article.linkedImage ) }}"
+                                             alt="{{ orderLine.article.title }}"/>
+                                    {% endif %}
+                                </a>
+
+                            </div>
+                            <div class="col-xs-4 card-body d-flex flex-column price-box">
+                                <h4 style="color:#e30613">{{ orderLine.article.title }}</h4>
+                                <h5>Prix : <span class="price">{{ orderLine.article.price }}</span> € HT.</h5>
+
+                            </div>
+
+                            <div class="col-xs-2">
+                                {% if orderLine.quantity < 10 %}
+                                    <div class="form-group" id="form-group">
+                                        <label for="exampleFormControlSelect1">Quantité</label>
+                                        <select class="form-control" id="{{ orderLine.article.id }}"
+                                                name="valueSelected">
+                                            {% for i in 1..9 %}
+                                                <option value="{{ i }}">{{ i }}</option>
+                                            {% endfor %}
+                                            <option>ou plus...</option>
+                                        </select>
+                                    </div>
+                                    <div class="table-h5-style">
+                                        <input type="number" name="{{ orderLine.article.id }}"
+                                               style="display: none">
+                                    </div>
+                                {% else %}
+                                    <div class="table-h5-style">
+                                        <input type="number" name="{{ orderLine.article.id }}">
+                                    </div>
                                 {% endif %}
-                            </a>
-
-                        </div>
-                        <div class="col-xs-4 card-body d-flex flex-column">
-                            <h4 style="color:#e30613">{{ orderLine.article.title }}</h4>
-                            <h5>Prix : <i id="price">{{ orderLine.article.price }}</i> € HT.</h5>
-
-                        </div>
-
-                        <div class="col-xs-2">
-                            {% if orderLine.quantity < 10 %}
-                                <div class="form-group" id="form-group">
-                                    <label for="exampleFormControlSelect1">Quantité</label>
-                                    <select class="form-control" id="{{ orderLine.article.id }}">
-                                        {% for i in 1..9 %}
-                                            <option value="{{ i }}">{{ i }}</option>
-                                        {% endfor %}
-                                        <option>ou plus...</option>
-                                    </select>
-                                </div>
-                                <div class="table-h5-style">
-                                    <input id="quantity" type="number" name="{{ orderLine.article.id }}"
-                                           style="display: none">
-                                </div>
-                            {% else %}
-                                <div class="table-h5-style">
-                                    <input id="quantity" type="number" name="{{ orderLine.article.id }}"
-                                           placeholder="{{ orderLine.quantity }}">
-                                </div>
-                            {% endif %}
-                            <div id="subtotalHT">Sous-total HT
-                                : {{ (orderLine.article.price * orderLine.article.price)|round(2) }}</div>
-                            <div id="subtotalTTC">Sous-total TTC
-                                : {{ (orderLine.article.price * orderLine.article.price * 1.2)|round(2) }}</div>
-                            <script type="text/javascript" xmlns="http://www.w3.org/1999/html">
-                                $(document).ready(function () {
-                                    var currentSelector = $("#{{ orderLine.article.id }}");
+                                    <div class="subtotalHT-box">
+                                        Sous-total HT : <span class="subtotalHT"></span>
+                                    </div>
+                                    <div class="subtotalTTC-box">
+                                        Sous-total TTC : <span class="subtotalTTC"></span>
+                                    </div>
+                                <script type="text/javascript" xmlns="http://www.w3.org/1999/html">
+                                    $(document).ready(function () {
+                                        var currentSelector = $("#{{ orderLine.article.id }}");
 
 
-                                    //set selected quantity according to the quantity received
-                                    currentSelector.val("{{ orderLine.quantity }}");
+                                        //set selected quantity according to the quantity received
+                                        currentSelector.val("{{ orderLine.quantity }}");
 
-                                    //If ten or more is select, show an input field
-                                    currentSelector.change(function () {
-                                        var tenOrMore = currentSelector.val();
-                                        if (tenOrMore == "ou plus...") {
-                                            currentSelector.hide();
-                                            $("input[name={{ orderLine.article.id }}]").show();
-                                        }
+                                        //If ten or more is select, show an input field
+                                        currentSelector.change(function () {
+                                            var tenOrMore = currentSelector.val();
+                                            if (tenOrMore == "ou plus...") {
+                                                currentSelector.hide();
+                                                $("input[name={{ orderLine.article.id }}]").show();
+                                            }
+                                        });
                                     });
-                                });
-                            </script>
+                                </script>
+                            </div>
+
                         </div>
-
                     </div>
-                </div>
                 {% endfor %}
-
-                {% block javascripts %}
-                <script type="text/javascript" xmlns="http://www.w3.org/1999/html">
-                    $(document).ready(function () {
-                        var totalSum = function () {
-                            var total = 0;
-                            $('#price').each(function (index, item) {
-                                total += parseFloat($(item).html());
-                            });
-
-                            $('.total').html(total);
-                        };
-                        totalSum();
-                    });
-                </script>
-                {% endblock %}
-
             {% endif %}
             <br>
             <br>
@@ -105,6 +90,85 @@
                 Vider le panier</a>
         </div>
     </div>
-    <h3>Total : <span class="total"></span></h3>
+    <div class="jumbotron-fluid">
+        <div class="container" id="total">
+            <hr>
+            <div class="d-flex align-items-end flex-column">
+                <h3 class="p-2">Total HT : <span id="totalHT"></span></h3>
+                <h3 class="p-2">Total TTC : <span id="totalTTC"></span></h3>
+            </div>
+        </div>
+    </div>
 
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" xmlns="http://www.w3.org/1999/html">
+        $(document).ready(function () {
+
+            var totalSum = function () {
+                var totalHT = 0;
+                $('.subtotalHT').each(function (index, item) {
+                    totalHT += parseFloat($(item).html());
+                });
+
+                var roundedTotalHt = totalHT.toFixed(2);
+                $("#totalHT").text(roundedTotalHt);
+
+                var TotalTTC = totalHT * 1.2;
+                var roundedTotalTtc = TotalTTC.toFixed(2);
+                $("#totalTTC").text(roundedTotalTtc);
+
+            };
+            totalSum();
+
+
+            $("select").change(function () {
+                var select =  $(this);
+                var quantity = select.val();
+                var price = $(this).parent().parent().siblings('.price-box').find('.price').text();
+                var subTotal = (price * quantity);
+
+                var subtotalHT = select.parent().siblings(".subtotalHT-box").find('.subtotalHT');
+                var subtotalTTC = select.parent().siblings(".subtotalTTC-box").find('.subtotalTTC');
+
+                var roundedsubTotalHt = subTotal.toFixed(2);
+                subtotalHT.text(roundedsubTotalHt);
+
+                var subTotalTTC = subTotal * 1.2;
+                var roundedsubTotalTtc = subTotalTTC.toFixed(2);
+                subtotalTTC.text(roundedsubTotalTtc);
+
+                if(quantity === "ou plus..."){
+                    subtotalHT.text('0,00');
+                    subtotalTTC.text('0,00');
+                    $("input").keyup(function () {
+                        var input = $(this);
+
+                        var subtotalHT = input.parent().siblings(".subtotalHT-box").find('.subtotalHT');
+                        var subtotalTTC = input.parent().siblings(".subtotalTTC-box").find('.subtotalTTC');
+                        
+                        var quantityB = input.val();
+                        var subTotal = (price * quantityB);
+
+                        var roundedsubTotalHt = subTotal.toFixed(2);
+                        subtotalHT.text(roundedsubTotalHt);
+
+                        var subTotalTTC = subTotal * 1.2;
+                        var roundedsubTotalTtc = subTotalTTC.toFixed(2);
+                        subtotalTTC.text(roundedsubTotalTtc);
+
+                        totalSum();
+                    });
+                }
+
+                totalSum();
+
+            })
+
+                .change();
+
+
+
+        });
+    </script>
 {% endblock %}
