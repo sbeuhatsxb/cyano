@@ -21,7 +21,6 @@ class ProductVideo extends ProductMedia
     private $videoId;
 
 
-
     public function getProvider(): ?string
     {
         return $this->provider;

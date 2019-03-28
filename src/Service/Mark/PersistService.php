@@ -235,7 +235,7 @@ class PersistService
                 if (empty($oidArray['isVideo'])) {
                     $input = $this->getExistingEntityOrNewOne(ProductPicture::class, $localOid);
                 }
-                if(isset($input)){
+                if (isset($input)) {
                     $this->setProductMedias($input, $oidArray);
 
                     if (is_null($input) || is_null($input->getOid())) {
@@ -299,7 +299,7 @@ class PersistService
         //LABEL
         if (!empty($oidArray['label'])) {
             foreach ($languages as $lang) {
-                if($lang == "fr_FR"){
+                if ($lang == "fr_FR") {
                     $input->setLabel(iconv('UTF-8', 'UTF-8//IGNORE', $oidArray['label'][$lang]));
                 }
             }
@@ -462,11 +462,11 @@ class PersistService
                 $input->setMediaSegment($oidArray['metadata'][$lang]);
             }
         }
-//
-//        $this->entityManager->persist($input);
-//        $this->entityManager->flush();
-//        $this->entityManager->clear();
-//        dump("Product flushed !! " . $input);
+        //
+        //        $this->entityManager->persist($input);
+        //        $this->entityManager->flush();
+        //        $this->entityManager->clear();
+        //        dump("Product flushed !! " . $input);
     }
 
     /**
@@ -485,12 +485,12 @@ class PersistService
 
         foreach ($languages as $lang) {
             $locale = $this->langLocaleConverter($lang);
-//            $input->setCurrentLocale($locale);
+            //            $input->setCurrentLocale($locale);
             if (isset($oidArray['value'])) {
                 if (in_array($locale, $oidArray['value'])) {
-//                    $input->setValue(iconv('UTF-8', 'UTF-8//IGNORE', $oidArray['value'][$lang]));
+                    //                    $input->setValue(iconv('UTF-8', 'UTF-8//IGNORE', $oidArray['value'][$lang]));
                 }
-//                $this->mergeNewNonEmptyTranslations($input);
+                //                $this->mergeNewNonEmptyTranslations($input);
             }
 
         }
@@ -523,9 +523,9 @@ class PersistService
 
         foreach ($languages as $lang) {
             $locale = $this->langLocaleConverter($lang);
-//            $input->setCurrentLocale($locale);
-//            $input->setValue(iconv('UTF-8', 'UTF-8//IGNORE', $oidArray['label'][$lang]));
-//            $input->setDescription(iconv('UTF-8', 'UTF-8//IGNORE', $oidArray['description'][$lang]));
+            //            $input->setCurrentLocale($locale);
+            //            $input->setValue(iconv('UTF-8', 'UTF-8//IGNORE', $oidArray['label'][$lang]));
+            //            $input->setDescription(iconv('UTF-8', 'UTF-8//IGNORE', $oidArray['description'][$lang]));
         }
 
         return $input;
@@ -555,48 +555,48 @@ class PersistService
     {
         /** @var ProductMedia $input */
         // If we're getting a product associated, we check is this product exist in DB. If so, we do import this media.
-//        if (isset($oidArray['productOid'])) {
-//            $product = $this->entityManager->getRepository(Product::class)
-//                ->findOneByOid('PRODUCT:' . $oidArray['productOid']);
-//            if (!$product) {
-////                $this->logger->error(
-////                    sprintf(
-////                        'WARNING : The product reference : ' . $oidArray['associatedProduct'] . ' was not found in database. Skipping.'
-////                    )
-////                );
-//            } else {
-//                dump($oidArray);
+        //        if (isset($oidArray['productOid'])) {
+        //            $product = $this->entityManager->getRepository(Product::class)
+        //                ->findOneByOid('PRODUCT:' . $oidArray['productOid']);
+        //            if (!$product) {
+        ////                $this->logger->error(
+        ////                    sprintf(
+        ////                        'WARNING : The product reference : ' . $oidArray['associatedProduct'] . ' was not found in database. Skipping.'
+        ////                    )
+        ////                );
+        //            } else {
+        //                dump($oidArray);
 
-//                $input->addProduct($product);
+        //                $input->addProduct($product);
+        $input->setOid(strtoupper($oidArray['type']) . ":" . $oidArray['oid']);
+        $lastMDBUpdate = New \DateTime($oidArray['lastMDBUpdate']);
+        $input->setLastMDBUpdate($lastMDBUpdate);
+
+        if (isset($oidArray['label']) && is_array($oidArray['label'])) {
+            $input->setLabel($oidArray['label'][self::DEFAULT_LANG]);
+        } else if (isset($oidArray['label']) && is_string($oidArray['label'])) {
+            $input->setLabel($oidArray['label']);
+        }
+
+        if (empty($oidArray['isVideo'])) {
+            if (isset($oidArray['oid'])) {
                 $input->setOid(strtoupper($oidArray['type']) . ":" . $oidArray['oid']);
-                $lastMDBUpdate = New \DateTime($oidArray['lastMDBUpdate']);
-                $input->setLastMDBUpdate($lastMDBUpdate);
+            }
 
-                if (isset($oidArray['label']) && is_array($oidArray['label'])) {
-                    $input->setLabel($oidArray['label'][self::DEFAULT_LANG]);
-                } else if (isset($oidArray['label']) && is_string($oidArray['label'])) {
-                    $input->setLabel($oidArray['label']);
-                }
+            $lastMDBUpdate = New \DateTime($oidArray['lastMDBUpdate']);
+            $input->setLastMDBUpdate($lastMDBUpdate);
 
-                if (empty($oidArray['isVideo'])) {
-                    if (isset($oidArray['oid'])) {
-                        $input->setOid(strtoupper($oidArray['type']) . ":" . $oidArray['oid']);
-                    }
+            if (isset($oidArray['color'])) {
+                $input->setColor($oidArray['color']);
+            }
 
-                    $lastMDBUpdate = New \DateTime($oidArray['lastMDBUpdate']);
-                    $input->setLastMDBUpdate($lastMDBUpdate);
+            if (isset($oidArray['originalName'])) {
+                $input->setOriginalName($oidArray['originalName']);
+            }
 
-                    if (isset($oidArray['color'])) {
-                        $input->setColor($oidArray['color']);
-                    }
-
-                    if (isset($oidArray['originalName'])) {
-                        $input->setOriginalName($oidArray['originalName']);
-                    }
-
-                    $input->setUrl($oidArray['url']);
-                    $input->setIsReference($oidArray['referenceImage']);
-                }
+            $input->setUrl($oidArray['url']);
+            $input->setIsReference($oidArray['referenceImage']);
+        }
 
 
         return $input;

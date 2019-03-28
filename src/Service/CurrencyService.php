@@ -37,9 +37,9 @@ class CurrencyService
         );
 
         if ($currentCurrency->getSymbolLocation() == false) {
-            $displayedNumber = $currentCurrency->getSymbol().' '.$displayedNumber;
+            $displayedNumber = $currentCurrency->getSymbol() . ' ' . $displayedNumber;
         } else {
-            $displayedNumber = $displayedNumber.' '.$currentCurrency->getSymbol();
+            $displayedNumber = $displayedNumber . ' ' . $currentCurrency->getSymbol();
         }
 
         if (is_float($number) && $currentCurrency->getDecimalSeparator() == '') {

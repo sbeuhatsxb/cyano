@@ -62,9 +62,9 @@ class SegmentRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush($segment);
     }
 
-//    /**
-//     * @return Segment[] Returns an array of Segment objects
-//     */
+    //    /**
+    //     * @return Segment[] Returns an array of Segment objects
+    //     */
     /*
     public function findByExampleField($value)
     {

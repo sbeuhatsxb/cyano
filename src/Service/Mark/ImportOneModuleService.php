@@ -145,7 +145,7 @@ class ImportOneModuleService
      */
     private function promptOffset()
     {
-        echo PHP_EOL."Type in the offset from which you wish to restart the import (min. 1) : ";
+        echo PHP_EOL . "Type in the offset from which you wish to restart the import (min. 1) : ";
         $prompt = strtoupper(mb_convert_encoding(rtrim(fgets(STDIN)), 'UTF-8'));
 
         return $prompt;
@@ -156,7 +156,7 @@ class ImportOneModuleService
      */
     private function promptModule()
     {
-        echo PHP_EOL."Type in the module concerned : ";
+        echo PHP_EOL . "Type in the module concerned : ";
         $prompt = strtoupper(mb_convert_encoding(rtrim(fgets(STDIN)), 'UTF-8'));
 
         return $prompt;

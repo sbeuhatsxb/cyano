@@ -32,7 +32,7 @@ class OrderLine
      * @ORM\ManyToOne(targetEntity="App\Entity\Order", inversedBy="orderLine")
      */
     private $command;
-    
+
     public function getId(): ?int
     {
         return $this->id;

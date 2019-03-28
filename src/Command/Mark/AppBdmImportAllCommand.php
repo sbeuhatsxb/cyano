@@ -26,11 +26,11 @@ class AppBdmImportAllCommand extends Command
     protected $bdmQueryService;
 
 
-
     public function __construct(
         QueryService $bdmQueryService,
         EntityManagerInterface $entityManager
-    ) {
+    )
+    {
         parent::__construct();
         $this->bdmQueryService = $bdmQueryService;
         $this->entityManager = $entityManager;
@@ -39,7 +39,6 @@ class AppBdmImportAllCommand extends Command
     protected function configure()
     {
         $this
-
             ->setName(self::$defaultName)
             ->setDescription('Launch full BDM import')
             ->setHelp('This command launches the full import of the Rossignol\'s Makerting Database');

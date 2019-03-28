@@ -21,7 +21,7 @@ class IndexBuilder
 
         $settings = Yaml::parse(
             file_get_contents(
-                __DIR__.'/../../config/elasticsearch.yaml'
+                __DIR__ . '/../../config/elasticsearch.yaml'
             )
         );
         // We build our index settings and mapping

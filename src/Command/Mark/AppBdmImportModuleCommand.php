@@ -21,7 +21,8 @@ class AppBdmImportModuleCommand extends Command
 
     public function __construct(
         ImportOneModuleService $bdmImportOneModuleService
-    ) {
+    )
+    {
         parent::__construct();
         $this->bdmImportOneModuleService = $bdmImportOneModuleService;
     }

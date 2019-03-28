@@ -230,7 +230,7 @@ class Article
 
     public function getImageFile()
     {
-        return '/uploads/images/'.$this->getLinkedImage()->getImageFile();
+        return '/uploads/images/' . $this->getLinkedImage()->getImageFile();
     }
 
     public function getPreview(): ?string

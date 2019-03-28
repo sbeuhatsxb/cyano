@@ -54,33 +54,33 @@ class QueryService
      * @var Entity[] array
      */
     public static $modules = [
-//        CategorySportSegment::class,
-//        GenderSegment::class,
-//        BGroupSegment::class,
-//        TypeSegment::class,
-//        TypesB2CSegment::class,
-//        Category1Segment::class,
-//        CategoryB2BSegment::class,
-//        Category3Segment::class,
-//        CollectionSegment::class,
-//        SpecLabelSegment::class,
-//        MiscLabelsSegment::class,
-//        SpecDefinitionSegment::class,
-//        Category2Segment::class,
-//        TechnoSegment::class,
-//        TechnoMedia::class,
+        //        CategorySportSegment::class,
+        //        GenderSegment::class,
+        //        BGroupSegment::class,
+        //        TypeSegment::class,
+        //        TypesB2CSegment::class,
+        //        Category1Segment::class,
+        //        CategoryB2BSegment::class,
+        //        Category3Segment::class,
+        //        CollectionSegment::class,
+        //        SpecLabelSegment::class,
+        //        MiscLabelsSegment::class,
+        //        SpecDefinitionSegment::class,
+        //        Category2Segment::class,
+        //        TechnoSegment::class,
+        //        TechnoMedia::class,
 
         // /!\ IMPORTANT /!\ IN THIS SPECIFIC BELOW ORDER
         // SINCE SEASONS AND BRANDS HAVE TO BE LOADED BEFORE PACKAGES AND SO ON...
         // (in case of random manipulations :
         // 1) Season, 2) BrandSegment, 3) Awards, 4) Package, 5) Product, 6) PackageProduct, 7) ProductMedia
 
-//        Season::class,
-//        BrandSegment::class,
-//        Awards::class,
-//        Package::class,
-//        Product::class,
-//        PackageProduct::class,
+        //        Season::class,
+        //        BrandSegment::class,
+        //        Awards::class,
+        //        Package::class,
+        //        Product::class,
+        //        PackageProduct::class,
         ProductMedia::class,
     ];
 

@@ -63,7 +63,7 @@ class ProductMediaRepository extends AbstractEntityRepository
         $qb->select('pm')
             ->where(
                 $qb->expr()->isMemberOf(':product', 'pm.products')
-                //$qb->expr()->isNotNull('pm.media')
+            //$qb->expr()->isNotNull('pm.media')
             )
             ->setParameter('product', $product->getId());
 

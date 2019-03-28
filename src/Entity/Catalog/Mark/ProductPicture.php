@@ -12,7 +12,7 @@ class ProductPicture extends ProductMedia
 {
     const FORMAT_THUMBNAIL = 'thumbnail';
     const FORMAT_ZOOM = 'zoom';
-    
+
     /**
      * @ORM\Column(type="text")
      */

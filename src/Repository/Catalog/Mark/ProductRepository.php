@@ -38,7 +38,7 @@ class ProductRepository extends AbstractEntityRepository
 
     /**
      * @param ProductModel $model
-     * @param Catalog      $catalog
+     * @param Catalog $catalog
      *
      * @return Product|null
      */

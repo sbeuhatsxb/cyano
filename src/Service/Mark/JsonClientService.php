@@ -65,25 +65,25 @@ class JsonClientService extends JsonApiClientService
 
     /** @var array : Contains the bindings between the module's integers codes and their names in the JSON API */
     const MDB_TYPES_MODULESNUMBERS = [
-        11  => 'labels',    //Labels
-        62  => 'categorysport',    //Categories
-        63  => 'gender',    //Categories
-        64  => 'techno',    //Technologies
-        65  => 'trademarkgroup',    //Groups
-        66  => 'trademark',    //Groups
-        67  => 'season',    //Seasons
-        68  => 'producttype',    //Categories
-        70  => 'product',    //All
-        72  => 'category1',    //Category
-        73  => 'category2',    //Category
-        74  => 'category3',    //Category
-        78  => 'misclabels',    //Misc.
-        80  => 'media',    //Products
-        84  => 'countries',    //Countries
-        85  => 'collection',    //Collections
-        87  => 'technomedia',    //Technologies
-        88  => 'mediasegmentation',    //Medias
-        89  => 'continent',    //Continents
+        11 => 'labels',    //Labels
+        62 => 'categorysport',    //Categories
+        63 => 'gender',    //Categories
+        64 => 'techno',    //Technologies
+        65 => 'trademarkgroup',    //Groups
+        66 => 'trademark',    //Groups
+        67 => 'season',    //Seasons
+        68 => 'producttype',    //Categories
+        70 => 'product',    //All
+        72 => 'category1',    //Category
+        73 => 'category2',    //Category
+        74 => 'category3',    //Category
+        78 => 'misclabels',    //Misc.
+        80 => 'media',    //Products
+        84 => 'countries',    //Countries
+        85 => 'collection',    //Collections
+        87 => 'technomedia',    //Technologies
+        88 => 'mediasegmentation',    //Medias
+        89 => 'continent',    //Continents
         108 => 'pressreview',    //Products
         109 => 'package',    //Packages
         110 => 'packageproduct',    //Packages
@@ -253,18 +253,18 @@ class rossignol_BdmJsonApiHelper
      */
     private static $segmentsBindingForV2 = [
         'GC_CATEGORYSPORT' => 'category',
-        'GC_TYPE'          => 'producttype',
-        'GC_BRAND'         => 'trademark',
-        'GC_SEASON'        => 'season',
-        'GC_REFERENCE'     => 'reference',
+        'GC_TYPE' => 'producttype',
+        'GC_BRAND' => 'trademark',
+        'GC_SEASON' => 'season',
+        'GC_REFERENCE' => 'reference',
     ];
 
     public static $segmentsBindingInverseForV2 = [
-        'category'    => 'GC_CATEGORYSPORT',
+        'category' => 'GC_CATEGORYSPORT',
         'producttype' => 'GC_TYPE',
-        'trademark'   => 'GC_BRAND',
-        'season'      => 'GC_SEASON',
-        'reference'   => 'GC_REFERENCE',
+        'trademark' => 'GC_BRAND',
+        'season' => 'GC_SEASON',
+        'reference' => 'GC_REFERENCE',
     ];
 
     /**
@@ -274,19 +274,19 @@ class rossignol_BdmJsonApiHelper
      * while allowing to use and parse the JSON Api.
      */
     private static $typeInjection = [
-        'CATEGORYSPORT'  => 'SEGCATSPRT',
-        'GENDER'         => 'SEGGENDER',
+        'CATEGORYSPORT' => 'SEGCATSPRT',
+        'GENDER' => 'SEGGENDER',
         'TRADEMARKGROUP' => 'BGROUP',
-        'PRODUCT'        => 'PRODUCTS',
-        'PRODUCTTYPE'    => 'SEGTYPE',
-        'CATEGORY1'      => 'SEGCAT1',
-        'CATEGORY2'      => 'SEGCAT2',
-        'CATEGORY3'      => 'SEGCAT3',
-        'MISCLABELS'     => 'MISCPRODUCTSLABELS',
-        'COLLECTION'     => 'PRODUCTSCOLLECTION',
-        'CATEGORYB2B'    => 'SEGCATB2B',
+        'PRODUCT' => 'PRODUCTS',
+        'PRODUCTTYPE' => 'SEGTYPE',
+        'CATEGORY1' => 'SEGCAT1',
+        'CATEGORY2' => 'SEGCAT2',
+        'CATEGORY3' => 'SEGCAT3',
+        'MISCLABELS' => 'MISCPRODUCTSLABELS',
+        'COLLECTION' => 'PRODUCTSCOLLECTION',
+        'CATEGORYB2B' => 'SEGCATB2B',
         'PRODUCTTYPEB2C' => 'B2CTYPE',
-        'MEDIA'          => 'PRODMEDIA',
+        'MEDIA' => 'PRODMEDIA',
 
     ];
 

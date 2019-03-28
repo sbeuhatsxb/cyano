@@ -7,6 +7,7 @@
  */
 
 namespace App\Service;
+
 use App\Entity\Article;
 use App\Entity\Brand;
 use App\Entity\Catalog\Mark\Product;
@@ -41,15 +42,15 @@ class GenerateArticleService
         $images = $this->entityManager->getRepository(Image::class)->findAll();
 
         $i = 0;
-        foreach ($images as $image){
+        foreach ($images as $image) {
             $linkedProduct = $image->getText();
 
-            $product =  $this->entityManager->getRepository(Product::class)->find($linkedProduct);
+            $product = $this->entityManager->getRepository(Product::class)->find($linkedProduct);
 
             //Create categorie
             $randomCategory = $this->categoryInventor();
             $categoryRepo = $this->entityManager->getRepository(Category::class)->findOneBy(['name' => $randomCategory]);
-            if(!isset($categoryRepo)){
+            if (!isset($categoryRepo)) {
                 $category = new Category();
                 $category->setName($randomCategory);
                 $this->entityManager->persist($category);
@@ -63,10 +64,10 @@ class GenerateArticleService
             $priceMod = $this->priceModifierConverter('EUR');
             $ratio = $priceMod->getRatio();
             $price = $this->generatePrice() * $ratio;
-            if($this->brandConverter($product->getBrand())->getName() != null){
-                $title = $this->articleStr($emphase) . $emphase . ' ' . $this->brandConverter($product->getBrand())->getName() . ' ' .$product->getModelCode();
+            if ($this->brandConverter($product->getBrand())->getName() != null) {
+                $title = $this->articleStr($emphase) . $emphase . ' ' . $this->brandConverter($product->getBrand())->getName() . ' ' . $product->getModelCode();
             } else {
-                $title = $this->articleStr($emphase) . $emphase . ' sorti dont ne sait où ' .$product->getModelCode();
+                $title = $this->articleStr($emphase) . $emphase . ' sorti dont ne sait où ' . $product->getModelCode();
             };
 
             $input = new Article();
@@ -84,7 +85,7 @@ class GenerateArticleService
 
             $i++;
 
-            if($i >= 20){
+            if ($i >= 20) {
                 $this->entityManager->flush();
                 $this->entityManager->clear();
                 $i = 0;
@@ -92,24 +93,26 @@ class GenerateArticleService
         }
     }
 
-    private function randParagraph(){
+    private function randParagraph()
+    {
         $finder = new Finder();
         $finder->in('public/')->files()->name('alrdtp.txt');
-        foreach ($finder as $file){
+        foreach ($finder as $file) {
             $contents = $file->getContents();
             $strings = explode("\r\n", $contents);
         }
 
         $randomParagraph = rand(0, count($strings));
 
-        if($randomParagraph != ""){
+        if ($randomParagraph != "") {
             return $strings[$randomParagraph];
         } else {
             $this->randParagraph();
         }
     }
 
-    private function emphase(){
+    private function emphase()
+    {
         $emphaticArray = [
             'admirable',
             'adorable',
@@ -176,10 +179,11 @@ class GenerateArticleService
         return $emphaticArray[$randomEmphatic];
     }
 
-    private function articleStr($word){
-        $vowels = ['a','e','i','o','u','é'];
+    private function articleStr($word)
+    {
+        $vowels = ['a', 'e', 'i', 'o', 'u', 'é'];
         $firstLetter = mb_substr($word, 0, 1);
-        if(in_array($firstLetter, $vowels)){
+        if (in_array($firstLetter, $vowels)) {
             return 'L`';
         } else {
             return 'Le ';
@@ -190,18 +194,19 @@ class GenerateArticleService
      * @param $brandStr
      * @return object|null
      */
-    private function brandConverter($brandStr) {
+    private function brandConverter($brandStr)
+    {
 
         $brandsConvArray = [
             'DYNA' => 'DYNASTAR',
             'ROSS' => 'ROSSIGNOL',
             'VERT' => 'VERTICAL',
 
-            'ADVT'  => 'ADVENTURE',
-            'BROO'  => 'BROO',
-            'CAMP'  => 'CAMP',
+            'ADVT' => 'ADVENTURE',
+            'BROO' => 'BROO',
+            'CAMP' => 'CAMP',
             'CORE' => 'CORE',
-            'DC__' => 'DC' ,
+            'DC__' => 'DC',
             'DEDA' => 'DEDA',
             'ELAN' => 'ELAN',
             'FELT' => 'FELT',
@@ -233,12 +238,12 @@ class GenerateArticleService
 
         ];
 
-        foreach ($brandsConvArray as $key => $value){
-            if($key == $brandStr){
+        foreach ($brandsConvArray as $key => $value) {
+            if ($key == $brandStr) {
                 $brandStr = $value;
 
                 $brand = $this->entityManager->getRepository(Brand::class)->findOneBy(array('name' => $brandStr));
-                if(isset($brand)){
+                if (isset($brand)) {
                     return $brand;
                 } else {
                     $brand = new Brand();
@@ -252,38 +257,40 @@ class GenerateArticleService
         }
 
 
-
     }
 
     /**
      * @param $currencyStr
      * @return Currency $currency
      */
-    private function currencyConverter($currencyStr) {
+    private function currencyConverter($currencyStr)
+    {
         $currency = $this->entityManager->getRepository(Currency::class)->findOneBy(array('code' => $currencyStr));
         return $currency;
 
     }
 
-    private function priceModifierConverter($priceCode) {
+    private function priceModifierConverter($priceCode)
+    {
         $priceModifier = $this->entityManager->getRepository(PriceModifier::class)->findOneBy(array('code' => $priceCode));
         return $priceModifier;
 
     }
 
-    private function generatePrice(){
-        $random = rand(1,3);
-        if($random == 1){
+    private function generatePrice()
+    {
+        $random = rand(1, 3);
+        if ($random == 1) {
             return rand(100, 999) + 0.99;
-        }
-        elseif ($random == 2){
+        } elseif ($random == 2) {
             return rand(10, 99) + 0.99;
         } else {
             return rand(1, 9) + 0.99;
         }
     }
 
-    private function priceCalculator(Currency $linkedCurrency){
+    private function priceCalculator(Currency $linkedCurrency)
+    {
         $currency = $linkedCurrency->getCode();
         $priceMod = $this->priceModifierConverter($currency);
         $ratio = $priceMod->getRatio();
@@ -293,7 +300,8 @@ class GenerateArticleService
     }
 
 
-    private function categoryInventor(){
+    private function categoryInventor()
+    {
         $categories = [
             'hommes',
             'femmes',

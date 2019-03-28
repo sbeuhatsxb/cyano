@@ -14,6 +14,6 @@ abstract class Segment extends Entity
 
     public function __toString()
     {
-        return $this->getLabel().' '.parent::__toString();
+        return $this->getLabel() . ' ' . parent::__toString();
     }
 }

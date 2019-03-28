@@ -19,7 +19,8 @@ class GenerateArticle extends Command
     /**
      * @param GenerateArticleService $generateArticleService
      */
-    public function __construct(GenerateArticleService $generateArticleService) {
+    public function __construct(GenerateArticleService $generateArticleService)
+    {
         $this->generateArticleService = $generateArticleService;
         parent::__construct();
     }

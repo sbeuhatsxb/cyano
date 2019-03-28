@@ -7,6 +7,7 @@
  */
 
 namespace App\Service;
+
 use App\Entity\Image;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Finder\Finder;
@@ -38,13 +39,13 @@ class IndexImageManualyUploadedService
             $filename = $file->getBasename();
 
             $newFilename = str_replace('.', '', uniqid('', true)) . '.' . $file->getExtension();
-            $fileSystem->copy('public/uploads/images/manual/'.$filename, 'public/uploads/images/'.$newFilename);
+            $fileSystem->copy('public/uploads/images/manual/' . $filename, 'public/uploads/images/' . $newFilename);
 
             $image = new Image();
             $image->setImage($newFilename);
             $this->entityManager->persist($image);
 
-            $fileSystem->remove(['public/uploads/images/manual/'.$filename]);
+            $fileSystem->remove(['public/uploads/images/manual/' . $filename]);
 
         }
 

@@ -49,35 +49,35 @@ class ArticleIndexer
     public function indexAllDocuments($indexName)
     {
 
-//        $queryBuilder = $this->entityManager->createQueryBuilder()
-//            ->select('COUNT(e)')
-//            ->from('App\Entity\Article', 'e');
-//
-//        $count = $queryBuilder->getQuery()->getSingleScalarResult();
-//
-//        $range = 100;
-//
-//        for ($i = 0; $i <= $count; $i++) {
-//            $offset = $i;
-//
-//            $q = $this->entityManager->createQuery('select u from App\Entity\Article u')->setFirstResult( $offset )->setMaxResults( $range );
-//            $index = $this->client->getIndex($indexName);
-//            $batchSize = 20;
-//            $i = 0;
-//            $iterableResult = $q->iterate();
-//            foreach ($iterableResult as $row) {
-//                $post = $row[0];
-//                $documents[] = $this->buildDocument($post);
-//                if (($i % $batchSize) === 0) {
-//                    $index->addDocuments($documents);
-//                    $index->refresh();
-//                }
-//                ++$i;
-//            }
-//
-//
-//            $i += $range;
-//        }
+        //        $queryBuilder = $this->entityManager->createQueryBuilder()
+        //            ->select('COUNT(e)')
+        //            ->from('App\Entity\Article', 'e');
+        //
+        //        $count = $queryBuilder->getQuery()->getSingleScalarResult();
+        //
+        //        $range = 100;
+        //
+        //        for ($i = 0; $i <= $count; $i++) {
+        //            $offset = $i;
+        //
+        //            $q = $this->entityManager->createQuery('select u from App\Entity\Article u')->setFirstResult( $offset )->setMaxResults( $range );
+        //            $index = $this->client->getIndex($indexName);
+        //            $batchSize = 20;
+        //            $i = 0;
+        //            $iterableResult = $q->iterate();
+        //            foreach ($iterableResult as $row) {
+        //                $post = $row[0];
+        //                $documents[] = $this->buildDocument($post);
+        //                if (($i % $batchSize) === 0) {
+        //                    $index->addDocuments($documents);
+        //                    $index->refresh();
+        //                }
+        //                ++$i;
+        //            }
+        //
+        //
+        //            $i += $range;
+        //        }
 
         $allPosts = $this->articleRepository->findAll();
 

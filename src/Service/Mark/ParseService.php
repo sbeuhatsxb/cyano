@@ -200,11 +200,11 @@ class ParseService
 
                     $genericData = $this->seekLabels($jsonArraysClient, $module, $langArray);
                     $output[$oid] = [
-                        'oid'           => $oid,
-                        'type'          => $jsonArrayClient["type"],
+                        'oid' => $oid,
+                        'type' => $jsonArrayClient["type"],
                         'lastMDBUpdate' => $this->retrieveLastBdmUpdate($jsonArrayClient),
-                        'label'         => $genericData[$oid]['label'],
-                        'displayOrder'  => $displayOrder,
+                        'label' => $genericData[$oid]['label'],
+                        'displayOrder' => $displayOrder,
                     ];
 
                     if (count($output) >= 25) {
@@ -248,11 +248,11 @@ class ParseService
 
                     $genericData = $this->seekLabels($jsonArraysClient, $module, $langArray);
                     $output[$oid] = [
-                        'oid'           => $oid,
-                        'type'          => $jsonArrayClient["type"],
+                        'oid' => $oid,
+                        'type' => $jsonArrayClient["type"],
                         'lastMDBUpdate' => $this->retrieveLastBdmUpdate($jsonArrayClient),
-                        'label'         => $genericData[$oid]['label'],
-                        'code'          => $code,
+                        'label' => $genericData[$oid]['label'],
+                        'code' => $code,
                     ];
 
                     if (count($output) >= 25) {
@@ -300,11 +300,11 @@ class ParseService
                     }
 
                     $output[$oid] = [
-                        'type'          => $jsonArrayClient["type"],
+                        'type' => $jsonArrayClient["type"],
                         'lastMDBUpdate' => $this->retrieveLastBdmUpdate($jsonArrayClient),
-                        'oid'           => $oid,
-                        'label'         => $label,
-                        'code'          => $code,
+                        'oid' => $oid,
+                        'label' => $label,
+                        'code' => $code,
                     ];
 
                     if (count($output) >= 25) {
@@ -342,11 +342,11 @@ class ParseService
                     }
 
                     $output[$oid] = [
-                        'oid'           => $oid,
-                        'type'          => $jsonArrayClient["type"],
+                        'oid' => $oid,
+                        'type' => $jsonArrayClient["type"],
                         'lastMDBUpdate' => $this->retrieveLastBdmUpdate($jsonArrayClient),
-                        'label'         => $label,
-                        'code'          => $code,
+                        'label' => $label,
+                        'code' => $code,
                     ];
 
                     if (count($output) >= 25) {
@@ -397,12 +397,12 @@ class ParseService
 
                     $genericData = $this->seekLabels($jsonArraysClient, $module, $langArray);
                     $output[$oid] = [
-                        'oid'           => $oid,
-                        'type'          => $jsonArrayClient["type"],
+                        'oid' => $oid,
+                        'type' => $jsonArrayClient["type"],
                         'lastMDBUpdate' => $this->retrieveLastBdmUpdate($jsonArrayClient),
-                        'label'         => $genericData[$oid]['label'],
-                        'code'          => $code,
-                        'bGroup'        => $bGroup,
+                        'label' => $genericData[$oid]['label'],
+                        'code' => $code,
+                        'bGroup' => $bGroup,
                     ];
 
                     if (count($output) >= 25) {
@@ -465,18 +465,18 @@ class ParseService
                             }
                         } else {
                             $this->logger->alert(sprintf(
-                            'oid : %s, no IMAGE key found in jsonArrayClient', $jsonArrayClient["id"]
+                                'oid : %s, no IMAGE key found in jsonArrayClient', $jsonArrayClient["id"]
                             ));
                         }
                     }
 
                     $output[$oid] = [
-                        'oid'           => $oid,
-                        'type'          => $jsonArrayClient["type"],
+                        'oid' => $oid,
+                        'type' => $jsonArrayClient["type"],
                         'lastMDBUpdate' => $this->retrieveLastBdmUpdate($jsonArrayClient),
-                        'value'         => $value, //array
-                        'img'           => $img,
-                        'url'           => $url,
+                        'value' => $value, //array
+                        'img' => $img,
+                        'url' => $url,
                     ];
 
                     if (count($output) >= 25) {
@@ -520,11 +520,11 @@ class ParseService
                     }
 
                     $output[$oid] = [
-                        'oid'           => $oid,
-                        'type'          => $jsonArrayClient["type"],
+                        'oid' => $oid,
+                        'type' => $jsonArrayClient["type"],
                         'lastMDBUpdate' => $this->retrieveLastBdmUpdate($jsonArrayClient),
-                        'label'         => $label,
-                        'description'   => $description,
+                        'label' => $label,
+                        'description' => $description,
                     ];
 
                     if (count($output) >= 25) {
@@ -574,11 +574,11 @@ class ParseService
                     }
 
                     $output[$oid] = [
-                        'oid'           => $oid,
-                        'type'          => $jsonArrayClient["type"],
+                        'oid' => $oid,
+                        'type' => $jsonArrayClient["type"],
                         'lastMDBUpdate' => $this->retrieveLastBdmUpdate($jsonArrayClient),
-                        'url'           => $url,
-                        'originalName'  => $originalName,
+                        'url' => $url,
+                        'originalName' => $originalName,
                     ];
 
                     if (count($output) >= 25) {
@@ -633,12 +633,12 @@ class ParseService
                     }
 
                     $output[$oid] = [
-                        'oid'           => $oid,
-                        'type'          => $jsonArrayClient["type"],
+                        'oid' => $oid,
+                        'type' => $jsonArrayClient["type"],
                         'lastMDBUpdate' => $this->retrieveLastBdmUpdate($jsonArrayClient),
-                        'label'         => $label,
-                        'season'        => $seasonOid,
-                        'trademark'     => $brandOid,
+                        'label' => $label,
+                        'season' => $seasonOid,
+                        'trademark' => $brandOid,
                     ];
 
                     if (count($output) >= 25) {
@@ -707,12 +707,12 @@ class ParseService
                     }
 
                     $output[$oid] = [
-                        'oid'           => $oid,
-                        'type'          => $jsonArrayClient["type"],
+                        'oid' => $oid,
+                        'type' => $jsonArrayClient["type"],
                         'lastMDBUpdate' => $this->retrieveLastBdmUpdate($jsonArrayClient),
-                        'sequence'      => $sequence,
-                        'package'       => $package,
-                        'product'       => $product,
+                        'sequence' => $sequence,
+                        'package' => $package,
+                        'product' => $product,
                     ];
 
                     if (count($output) >= 25) {
@@ -863,10 +863,10 @@ class ParseService
             }
 
             $data[$oid] = [
-                'oid'           => $oid,
-                'type'          => $jsonArrayClient["type"],
+                'oid' => $oid,
+                'type' => $jsonArrayClient["type"],
                 'lastMDBUpdate' => $lastMDBUpdate,
-                'bGroup'        => $bGroup,
+                'bGroup' => $bGroup,
             ];
         }
 
@@ -901,8 +901,8 @@ class ParseService
 
             if (!isset($bdmAttributes["DESCR_METADATA"])) {
                 $this->logger->info(sprintf(
-                    '%s %s BdmProduct/DESCR_METADATA is not available on BDM.',
-                    $jsonArrayClient["id"], $jsonArrayClient["type"])
+                        '%s %s BdmProduct/DESCR_METADATA is not available on BDM.',
+                        $jsonArrayClient["id"], $jsonArrayClient["type"])
                 );
             }
             foreach (self::MDB_LANGUAGES_SUPPORTED as $lang) {
@@ -1017,20 +1017,20 @@ class ParseService
         } // end relationships
 
         $output[$oid] = [
-            'type'                   => $jsonArrayClient["type"],
-            'lastMDBUpdate'          => $this->retrieveLastBdmUpdate($jsonArrayClient),
-            'oid'                    => $oid,
-            'trademark'              => $trademark,
-            'season'                 => $season,
-            'reference'              => $reference,
-            'metadata'               => $metadata,
-            'label'                  => $label,
-            'attributes'             => $attributes,
+            'type' => $jsonArrayClient["type"],
+            'lastMDBUpdate' => $this->retrieveLastBdmUpdate($jsonArrayClient),
+            'oid' => $oid,
+            'trademark' => $trademark,
+            'season' => $season,
+            'reference' => $reference,
+            'metadata' => $metadata,
+            'label' => $label,
+            'attributes' => $attributes,
             'translatableAttributes' => $translatableAttributes,
-            'associatedMedias'       => $associatedMedias,
-            'relationships'          => $relationships,
-            'mainTechno'             => $mainTechno,
-            'secondaryTechno'        => $secondaryTechno,
+            'associatedMedias' => $associatedMedias,
+            'relationships' => $relationships,
+            'mainTechno' => $mainTechno,
+            'secondaryTechno' => $secondaryTechno,
         ];
 
         $this->updateOrCreateSegment($output, $module, $forceUpdate);
@@ -1154,16 +1154,16 @@ class ParseService
                     $label = $videoId . " - " . $provider;
 
                     $output[$oid] = [
-                        'type'              => $jsonArrayClient["type"],
-                        'lastMDBUpdate'     => $this->retrieveLastBdmUpdate($jsonArrayClient),
-                        'oid'               => $oid,
-                        'label'             => $label,
-                        'url'               => $url,
-                        'isVideo'           => true,
-                        'videoId'           => $videoId,
-                        'provider'          => $provider,
-                        'productOid'        => $productOid,
-                        'originalName'      => $originalName,
+                        'type' => $jsonArrayClient["type"],
+                        'lastMDBUpdate' => $this->retrieveLastBdmUpdate($jsonArrayClient),
+                        'oid' => $oid,
+                        'label' => $label,
+                        'url' => $url,
+                        'isVideo' => true,
+                        'videoId' => $videoId,
+                        'provider' => $provider,
+                        'productOid' => $productOid,
+                        'originalName' => $originalName,
                         'associatedProduct' => $associatedProduct,
                     ];
 
@@ -1208,17 +1208,17 @@ class ParseService
                     }
 
                     $output[$oid] = [
-                        'type'              => $jsonArrayClient["type"],
-                        'lastMDBUpdate'     => $this->retrieveLastBdmUpdate($jsonArrayClient),
-                        'oid'               => $oid,
-                        'originalName'      => $originalName,
-                        'referenceImage'    => $referenceImage,
-                        'label'             => $label,
-                        'url'               => $url,
-                        'color'             => $color,
-                        'mediaOid'          => $mediaOid,
-                        'productOid'        => $productOid,
-                        'isVideo'           => false,
+                        'type' => $jsonArrayClient["type"],
+                        'lastMDBUpdate' => $this->retrieveLastBdmUpdate($jsonArrayClient),
+                        'oid' => $oid,
+                        'originalName' => $originalName,
+                        'referenceImage' => $referenceImage,
+                        'label' => $label,
+                        'url' => $url,
+                        'color' => $color,
+                        'mediaOid' => $mediaOid,
+                        'productOid' => $productOid,
+                        'isVideo' => false,
                         'associatedProduct' => $associatedProduct,
                     ];
                 } else {

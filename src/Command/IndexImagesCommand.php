@@ -20,7 +20,8 @@ class IndexImagesCommand extends Command
      * IndexArticlesCommand constructor.
      * @param IndexImageManualyUploadedService $indexImageManualyUploadedService
      */
-    public function __construct(IndexImageManualyUploadedService $indexImageManualyUploadedService) {
+    public function __construct(IndexImageManualyUploadedService $indexImageManualyUploadedService)
+    {
         $this->indexImageManualyUploadedService = $indexImageManualyUploadedService;
         parent::__construct();
     }

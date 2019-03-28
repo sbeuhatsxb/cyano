@@ -30,7 +30,8 @@ class AppBdmImportSingleProductCommand extends Command
     public function __construct(
         EntityManagerInterface $entityManager,
         QueryService $bdmQueryService
-    ) {
+    )
+    {
         parent::__construct();
         $this->entityManager = $entityManager;
         $this->bdmQueryService = $bdmQueryService;

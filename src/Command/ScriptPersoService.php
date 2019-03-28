@@ -20,7 +20,8 @@ class ScriptPersoService extends Command
     /**
      * @param ScriptService $scriptService
      */
-    public function __construct(ScriptService $scriptService) {
+    public function __construct(ScriptService $scriptService)
+    {
         $this->scriptService = $scriptService;
         parent::__construct();
     }
@@ -35,6 +36,6 @@ class ScriptPersoService extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-            $this->scriptService->script();
+        $this->scriptService->script();
     }
 }

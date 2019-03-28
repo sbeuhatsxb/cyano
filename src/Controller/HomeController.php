@@ -86,7 +86,7 @@ class HomeController extends AbstractController
     {
         $categories = $categorieRepo->findAll();
         $brands = $brandRepo->findAll();
-        $classname = 'App\Entity\\'.$request->attributes->get('shortname');
+        $classname = 'App\Entity\\' . $request->attributes->get('shortname');
 
         $em = $this->getDoctrine()->getManager();
 

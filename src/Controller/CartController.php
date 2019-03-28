@@ -107,7 +107,7 @@ class CartController extends AbstractController
             /**
              * @var Order $sessionOrder
              */
-            foreach($sessionOrder->getOrderLine() as $orderline){
+            foreach ($sessionOrder->getOrderLine() as $orderline) {
                 //Unfortunately needed for data initialization
                 $article = $articleRepo->find($orderline->getArticle()->getId());
                 $orderline->getArticle()->setLinkedImage($article->getLinkedImage());

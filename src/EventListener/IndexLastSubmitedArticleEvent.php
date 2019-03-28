@@ -14,33 +14,33 @@ use App\Entity\Article;
 
 class IndexLastSubmitedArticleEvent
 {
-//    /**
-//     * @var IndexArticleService $indexArticleActionService
-//     */
-//    protected $indexArticleActionService;
-//
-//    /**
-//     * IndexArticlesCommand constructor.
-//     * @param IndexArticleService $indexArticleActionService
-//     */
-//    public function __construct(IndexArticleService $indexArticleActionService) {
-//        $this->indexArticleActionService = $indexArticleActionService;
-//    }
-//
-//
-//    public function postPersist(LifecycleEventArgs $args)
-//    {
-//        $entity = $args->getObject();
-//
-//        if (!$entity instanceof Article) {
-//            return;
-//        }
-//
-//        $entityManager = $args->getObjectManager();
-//
-//        $this->indexArticleActionService->indexArticle([$entity]);
-//
-//    }
+    //    /**
+    //     * @var IndexArticleService $indexArticleActionService
+    //     */
+    //    protected $indexArticleActionService;
+    //
+    //    /**
+    //     * IndexArticlesCommand constructor.
+    //     * @param IndexArticleService $indexArticleActionService
+    //     */
+    //    public function __construct(IndexArticleService $indexArticleActionService) {
+    //        $this->indexArticleActionService = $indexArticleActionService;
+    //    }
+    //
+    //
+    //    public function postPersist(LifecycleEventArgs $args)
+    //    {
+    //        $entity = $args->getObject();
+    //
+    //        if (!$entity instanceof Article) {
+    //            return;
+    //        }
+    //
+    //        $entityManager = $args->getObjectManager();
+    //
+    //        $this->indexArticleActionService->indexArticle([$entity]);
+    //
+    //    }
 
 
 }
