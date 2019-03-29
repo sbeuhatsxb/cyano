@@ -47,12 +47,12 @@
               type='text/css'/>
 
         <link rel="stylesheet" href="{{ asset('build/app.css') }}" type="text/css">
-        <link rel="shortcut icon" href="../public/favicon.ico">
+        <link rel="shortcut icon" href="/favicon.ico">
     {% endblock %}
 
 </head>
 
-<body class='index'>
+<div class='index'>
 {#MAIN CONTAINER BEGIN#}
 <div class="header-wrapper">
     <div class='top_wrapper'>
@@ -162,11 +162,9 @@
 </div>
 {#MAIN CONTAINER END#}
 
-<div class='clear'></div>
 
 {% block body %}
 {% endblock %}
-
 
 {#FOOTER BEGIN#}
 <div class="jumbotron-fluid">

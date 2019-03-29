@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "boldFont";
+  src: url("/build/fonts/theboldfont.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
@@ -124,7 +131,7 @@ a {
   font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
-navbar-dark .navbar-toggler {
+.navbar-dark .navbar-toggler {
   color: rgba(255, 255, 255, 0.9);
 }
 
@@ -235,8 +242,7 @@ body {
 
 body::after {
   content: "";
-  background: url("../../public/pictures/logo.jpg") no-repeat;
-  background-position: -20% 90%;
+  background: url("../../public/pictures/logo.jpg") no-repeat -20% 90%;
   opacity: 0.2;
   top: 0;
   left: 0;
@@ -254,12 +260,11 @@ a {
 body#layout div.section {
   background-color: #F8F8F8;
   font-family: sans-serif;
-  margin: 0px 4px 8px;
-  padding: 4px;
+  margin: 0 4px 8px;
   position: initial;
   border: 1px solid #CCC;
   overflow: visible;
-  padding-bottom: 100px;
+  padding: 4px 4px 100px;
 
 }
 
@@ -275,11 +280,11 @@ h1 {
   margin: 0 0 18px;
   letter-spacing: 0;
   word-spacing: 1px;
-  font-family: Merriweather, Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-family: boldFont, Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
 h2 {
-  font-family: Merriweather, Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-family: boldFont, Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 700;
   color: #111111;
   letter-spacing: 0;
@@ -336,7 +341,7 @@ h5 {
   background: #fff;
   border-radius: 2px;
   display: inline-block;
-  //min-height: 300px;
+  padding: 10px;
   margin-bottom: 2rem;
   position: relative;
 }
@@ -423,7 +428,7 @@ div#header-wrapper:before {
 h1.title span {
   border: 2px solid #FFFFFF;
   padding: 5px 15px;
-  font-family: Merriweather, Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-family: boldFont, Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 800;
   font-size: 30px;
   text-transform: uppercase;
@@ -530,9 +535,6 @@ ul.sf-menu li li li.sfHover ul {
 .sf-menu a:visited {
   border-radius: 2px;
   color: #fff;
-  font-weight: bold;
-  line-height: 1em;
-  outline: medium none;
   padding: 1em;
   font-size: 14px;
   font-weight: normal;
@@ -705,14 +707,7 @@ html[xmlns] .slides {
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
   -webkit-transition: all 0.2s linear;
-  -moz-transition: all 0.2s linear;
-  -o-transition: all 0.2s linear;
-  transition: all 0.2s linear;
-  -webkit-transition: all 0.2s linear;
-  -moz-transition: all 0.2s linear;
-  -o-transition: all 0.2s linear;
-  transition: all 0.2s linear;
-}
+ }
 
 .post_item h3 {
   font-size: 22px;
@@ -720,16 +715,16 @@ html[xmlns] .slides {
 
 .post_item h1 {
   font-size: 30px;
-  margin-bottom: 18px;
   color: #111111;
   font-weight: 700;
   line-height: 1.4444;
   margin: 0 0 10px;
   letter-spacing: 0;
   word-spacing: 1px;
-  font-family: Merriweather, Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-family: boldFont, Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
+//noinspection CssOverwrittenProperties
 .post_item_title a {
   display: block;
   padding: 20px 30px 12px;
@@ -740,7 +735,7 @@ html[xmlns] .slides {
   /* margin: 0 0 10px; */
   letter-spacing: 0;
   word-spacing: 1px;
-  font-family: Merriweather, Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-family: boldFont, Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 20px;
 }
 
@@ -792,12 +787,12 @@ html[xmlns] .slides {
 
 .post_tag a {
   background-color: #EDEDED;
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
   color: #666 !important;
   font-weight: normal;
   margin: 0 0 10px;
   padding: 5px;
-  text-shadow: 0px 1px 1px #FFF;
+  text-shadow: 0 1px 1px #FFF;
   float: right;
 }
 
@@ -1177,7 +1172,7 @@ div#footer a {
   cursor: pointer;
   /*background-image: url();*/
   background-repeat: no-repeat;
-  padding: 0px 20px 23px;
+  padding: 0 20px 23px;
   background-size: 100px 100px;
   top: 0;
   z-index: 99999;
@@ -1478,8 +1473,7 @@ iframe {
   #header {
     float: none;
     text-align: center;
-    margin: 0;
-    margin-bottom: 10px
+    margin: 0 0 10px;
   }
 
   #header img {
@@ -1510,7 +1504,7 @@ iframe {
   }
 
   #header img {
-    padding: 35px 0px 0px 5px;
+    padding: 35px 0 0 5px;
   }
 
   #header-wrapper {
@@ -1525,7 +1519,7 @@ iframe {
 
 @media only screen and (max-width: 680px) {
   #header img {
-    padding: 35px 0px 0px 5px;
+    padding: 35px 0 0 5px;
   }
 }
 
@@ -1558,7 +1552,7 @@ iframe {
   }
 
   #header img {
-    padding: 35px 0px 0px 5px;
+    padding: 35px 0 0 5px;
   }
 
   #related-posts ul li {
@@ -1707,8 +1701,7 @@ iframe {
   #header {
     float: none;
     text-align: center;
-    margin: 0;
-    margin-bottom: 10px
+    margin: 0 0 10px;
   }
 
   #header img {

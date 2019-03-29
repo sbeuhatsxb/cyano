@@ -23,7 +23,7 @@
                 {% for orderLine in order.getOrderLine() %}
                     {% set q = q + 1 %}
                     {# -> data-mh -> js -> same size boxes#}
-                    <div class="container exist" style="padding: 20px" id="{{ q }}">
+                    <div class="container exist" id="{{ q }}">
                         <div class="row">
 
                             <div class="col-xs-2 card-very-small card-body d-flex flex-column removeFromCart">
@@ -39,7 +39,6 @@
                                              alt="{{ orderLine.article.title }}"/>
                                     {% endif %}
                                 </a>
-
                             </div>
 
                             <div class="col-xs-4 card-body d-flex flex-column price-box">
@@ -51,7 +50,7 @@
                                 {% if orderLine.quantity < 10 %}
                                     <div class="form-group selector" id="form-group">
                                         <label for="exampleFormControlSelect1">Quantité</label>
-                                        <select class="form-control" id="{{ orderLine.article.id }}"
+                                        <select aria-label="quantity-selector" class="form-control" id="{{ orderLine.article.id }}"
                                                 name=" ">
                                             {% for i in 1..9 %}
                                                 <option value="{{ i }}">{{ i }}</option>
@@ -60,12 +59,12 @@
                                         </select>
                                     </div>
                                     <div class="table-h5-style selector">
-                                        <input type="number" name="{{ orderLine.article.id }}"
+                                        <input aria-label="quantity-selector" type="number" name="{{ orderLine.article.id }}"
                                                style="display: none">
                                     </div>
                                 {% else %}
                                     <div class="table-h5-style selector">
-                                        <input type="number" name="{{ orderLine.article.id }}">
+                                        <input aria-label="quantity-selector" type="number" name="{{ orderLine.article.id }}">
                                     </div>
                                 {% endif %}
                                 <div class="subtotalHT-box">
@@ -74,7 +73,7 @@
                                 <div class="subtotalTTC-box">
                                     Sous-total TTC : <span class="subtotalTTC"></span>
                                 </div>
-                                <script type="text/javascript" xmlns="http://www.w3.org/1999/html">
+                                <script>
                                     $(document).ready(function () {
                                         var currentSelector = $("#{{ orderLine.article.id }}");
 
@@ -84,7 +83,7 @@
                                         //If ten or more is select, show an input field
                                         currentSelector.change(function () {
                                             var tenOrMore = currentSelector.val();
-                                            if (tenOrMore == "ou plus...") {
+                                            if (tenOrMore === "ou plus...") {
                                                 currentSelector.hide();
                                                 $("input[name={{ orderLine.article.id }}]").show();
                                             }
@@ -103,6 +102,7 @@
                 Vider le panier</a>
         </div>
     </div>
+
     <div class="jumbotron-fluid">
         <div class="container" id="total">
             <hr>

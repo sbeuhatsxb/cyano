@@ -8,22 +8,17 @@
         {#SUMMARY OF FILTERS SELECTED BEGIN#}
         {% if shortname is defined %}
             <div class="row">
-                <div style="padding: 0 15px 0 15px">
-
                     {% if shortname == 'Brand' %}
                         <h2>Liste des articles en rapport avec la marque {{ filter|upper }} :</h2>
                     {% elseif shortname == 'Category' %}
                         <h2>Liste des articles en rapport avec la catégorie : {{ filter|upper }} </h2>
                     {% endif %}
-
-                </div>
             </div>
         {% endif %}
         {#SUMMARY OF FILTERS SELECTED END#}
 
         {#SUMMARY OF THE SEARCH#}
         <div class="row">
-
             {% if searchedTermArray is defined %}
                 <h2>Liste des articles en rapport votre recherche :&nbsp;&nbsp;</h2>
                 {% for term in searchedTermArray %}
@@ -46,6 +41,7 @@
         {#KNP PAGINATOR END#}
 
     </div>
+
     {#SECOND CONTAINER END#}
 
     {% block javascripts %}
@@ -53,7 +49,7 @@
         {{ encore_entry_script_tags('matchHeight') }}
 
     {% endblock %}
-
+    </div>
     {#END BLOCK BODY#}
 {% endblock %}
 
