@@ -21,6 +21,7 @@ Encore
     .addEntry('matchHeight', './assets/js/matchHeight.js')
     .addEntry('navBar', './assets/js/navBar.js')
     .addEntry('js/search', './assets/js/search.js')
+    .addEntry('cartCalculation', './assets/js/cart/cartCalculation.js')
     // .addEntry('home', './assets/js/home.js')
     // .addEntry('main', './assets/js/main.js')
     // .addEntry('page', './assets/js/page.js')

@@ -100,8 +100,6 @@ class CartController extends AbstractController
     {
         if ($session->get('order')) {
 
-            $gatheredArticles = [];
-
             $sessionOrder = $session->get('order');
 
             /**
@@ -134,5 +132,36 @@ class CartController extends AbstractController
     {
         $session->set('order', '');
         return $this->redirectToRoute('_viewCart');
+    }
+
+    /**
+     * @Route("/remove_from_cart", name="_removeFromCart")
+     * @Method("POST")
+     * @param Request $request
+     * @param Session $session
+     * @return Response
+     */
+    public function removeItem(Request $request, Session $session)
+    {
+        if ($request->isXmlHttpRequest()) {
+            $articleId = $request->request->get('articleId');
+
+            $sessionOrder = $session->get('order');
+
+            /**
+             * @var Order $sessionOrder
+             */
+            foreach ($sessionOrder->getOrderLine() as $orderline) {
+                //Unfortunately needed for data initialization
+                if($orderline->getArticle()->getId() == $articleId){
+                    $sessionOrder->removeOrderLine($orderline);
+                };
+            };
+
+            return new Response();
+
+        }
+        return new Response();
+
     }
 }
