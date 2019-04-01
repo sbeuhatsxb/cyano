@@ -13,6 +13,7 @@ use App\Entity\OrderLine;
 use App\Entity\User;
 use App\Repository\ArticleRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,7 +35,7 @@ class CartController extends AbstractController
         if ($request->isXmlHttpRequest()) {
 
             //Checking if we have any order in $_SESSION else, we create it
-            if (!$session->get('order')) {
+            if (!$session->has('order')) {
                 $order = new Order();
                 $user = $this->get('security.token_storage')->getToken()->getUser();
                 if ($user instanceof User) {
@@ -96,9 +97,9 @@ class CartController extends AbstractController
      * @param ArticleRepository $articleRepo
      * @return Response
      */
-    public function view(Session $session, ArticleRepository $articleRepo)
+    public function view(Session $session, ArticleRepository $articleRepo, Request $request)
     {
-        if ($session->get('order')) {
+        if ($session->has('order')) {
 
             $sessionOrder = $session->get('order');
 
@@ -116,6 +117,37 @@ class CartController extends AbstractController
         }
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        $securityContext = $this->container->get('security.authorization_checker');
+
+        $form = $this->createFormBuilder($sessionOrder)
+            ->add('save', SubmitType::class, ['label' => 'Valider la commande'])
+            ->getForm();
+
+        if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED') && $request->isMethod('POST')) {
+            $form->submit($request->request->get($form->getName()));
+
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                $em = $this->getDoctrine()->getManager();
+
+                $order = new Order;
+
+                $orderlines = $form->getData()->getOrderLine();
+                foreach($orderlines as $orderline){
+                    $order->addOrderLine($orderline);
+                    $em->persist($orderline);
+                }
+
+                $order->setLinkedUser($user);
+
+                $em->persist($order);
+
+                $em->flush();
+
+                return $this->redirectToRoute('_saveCart');
+            }
+        }
 
         return $this->render('cart.html.twig', [
             'order' => $sessionOrder,
