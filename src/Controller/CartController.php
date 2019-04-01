@@ -153,7 +153,7 @@ class CartController extends AbstractController
              */
             foreach ($sessionOrder->getOrderLine() as $orderline) {
                 //Unfortunately needed for data initialization
-                if($orderline->getArticle()->getId() == $articleId){
+                if ($orderline->getArticle()->getId() == $articleId) {
                     $sessionOrder->removeOrderLine($orderline);
                 };
             };

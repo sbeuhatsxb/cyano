@@ -19,8 +19,8 @@ abstract class AbstractRepository extends ServiceEntityRepository
 
     /**
      * {@inheritDoc}
-     * @see \Doctrine\ORM\EntityRepository::getEntityManager()
      * @return EntityManager
+     * @see \Doctrine\ORM\EntityRepository::getEntityManager()
      */
     public function getEntityManager()
     {
@@ -49,8 +49,8 @@ abstract class AbstractRepository extends ServiceEntityRepository
 
     /**
      * @param object $entity
-     * @throws \Exception
      * @return object
+     * @throws \Exception
      */
     public function refresh(object &$entity)
     {

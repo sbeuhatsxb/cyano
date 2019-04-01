@@ -3,9 +3,9 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 Encore
     .addPlugin(new CopyWebpackPlugin([
-        { from: './assets/fonts', to: 'fonts' }
+        {from: './assets/fonts', to: 'fonts'}
     ]))
-// directory where compiled assets will be stored
+    // directory where compiled assets will be stored
     .setOutputPath('public/build/')
     // public path used by the web server to access the output path
     .setPublicPath('/build')
@@ -50,8 +50,8 @@ Encore
     // enables hashed filenames (e.g. app.abc123.css)
     .enableVersioning(Encore.isProduction())
 
-// enables Sass/SCSS support
-.enableSassLoader()
+    // enables Sass/SCSS support
+    .enableSassLoader()
 
 // uncomment if you use TypeScript
 //.enableTypeScriptLoader()
